@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Files;
 
 namespace Infrastructure
 {
@@ -29,6 +30,7 @@ namespace Infrastructure
             source.AddScoped<AuditableEntitySaveChangesInterceptor>();
             source.AddScoped<IIdentityService, IdentityService>();
             source.AddScoped<IDateTime, DateTimeService>();
+            source.AddScoped(typeof(ICsvFileBuilder<>), typeof(CsvFileBuilder<>));
             return source;
         }
     }

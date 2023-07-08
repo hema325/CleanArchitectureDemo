@@ -1,29 +1,26 @@
 ﻿using Application.Items.Commands.CreateItem;
 using Application.Items.Commands.DeleteItem;
 using Application.Items.Commands.UpdateItem;
+using Application.Items.Queries.GetItemsInCsvFile;
 using Application.Items.Queries.GetItemsWithPagination;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace WebApi.Controllers
 {
     public class ItemsController : BaseApiController
     {
         private readonly IMediator _mediator;
+
         public ItemsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> Get(int pageNumber,int pageSize)
+        public async Task<IActionResult> Get([FromQuery] GetItemsWithPaginationQuery request)
         {
-            var request = new GetItemsWithPaginationQuery
-            {
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            };
-
             var items = await _mediator.Send(request);
 
             if (items == null)
@@ -40,39 +37,31 @@ namespace WebApi.Controllers
             return Ok(id);
         }
 
-        [HttpPut("[action]")]
-        public async Task<IActionResult> Update(UpdateItemCommand request)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id,UpdateItemCommand request)
         {
-            try
-            {
-                await _mediator.Send(request);
-            }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
+            if (id != request.Id)
+                return BadRequest();
 
-            return Ok();
+            await _mediator.Send(request);
+
+            return NoContent();
         }
 
-        [HttpDelete("[action]/{id:int}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var request = new DeleteItemCommand
-            {
-                Id = id
-            };
+            await _mediator.Send(new DeleteItemCommand { Id = id });
 
-            try
-            {
-                await _mediator.Send(request);
-            }
-            catch(Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
+            return NoContent();
+        }
 
-            return Ok();
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Download()
+        {
+            var fileVM = await _mediator.Send(new GetItemsInCsvFileQuery());
+
+            return File(fileVM.Content, fileVM.ContentType, fileVM.FileName);
         }
 
     }

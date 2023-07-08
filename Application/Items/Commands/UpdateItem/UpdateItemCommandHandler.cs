@@ -23,7 +23,7 @@ namespace Application.Items.Commands.UpdateItem
             _mapper = mapper;
         }
 
-        public async Task Handle(UpdateItemCommand request, CancellationToken cancellationToken)
+        async Task<Unit> IRequestHandler<UpdateItemCommand, Unit>.Handle(UpdateItemCommand request, CancellationToken cancellationToken)
         {
             var item = await _context.Items.FindAsync(request.Id);
 
@@ -35,6 +35,8 @@ namespace Application.Items.Commands.UpdateItem
             item.AddDomainEvent(new ItemUpdatedEvent(item));
 
             await _context.SaveChangesAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

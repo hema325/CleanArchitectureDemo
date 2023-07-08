@@ -1,7 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Application.Common.Mapping;
 using Application.Common.Models;
-using Application.Items.DTOs;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;

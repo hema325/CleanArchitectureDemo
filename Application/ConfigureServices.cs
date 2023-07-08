@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using Application.Common.Behaviors;
+using FluentValidation;
+using MediatR;
+using MediatR.Pipeline;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,9 +16,12 @@ namespace Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection source)
         {
-            source.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            source.AddMediatR(Assembly.GetExecutingAssembly());
+            source.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            source.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehavior<,>));
+            source.AddScoped(typeof(IRequestPreProcessor<>), typeof(LogginBehavior<>));
             source.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+            source.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             return source;
         }
     }

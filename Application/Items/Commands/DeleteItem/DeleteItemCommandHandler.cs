@@ -21,7 +21,7 @@ namespace Application.Items.Commands.DeleteItem
             _context = context;
         }
 
-        public async Task Handle(DeleteItemCommand request, CancellationToken cancellationToken)
+         async Task<Unit> IRequestHandler<DeleteItemCommand, Unit>.Handle(DeleteItemCommand request, CancellationToken cancellationToken)
         {
             var item = await _context.Items.FindAsync(request.Id);
 
@@ -32,6 +32,8 @@ namespace Application.Items.Commands.DeleteItem
 
             _context.Items.Remove(item);
             await _context.SaveChangesAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

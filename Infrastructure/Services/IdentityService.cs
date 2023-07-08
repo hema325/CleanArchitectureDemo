@@ -14,39 +14,18 @@ namespace Infrastructure.Services
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public IdentityService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public IdentityService(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
-        public async Task<Result> DeleteUserAsync(string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId);
-            var result = await _userManager.DeleteAsync(user);
-
-            return result.ToResult();
-        }
-
-        public async Task<bool> IsInRoleAsync(string userId, string Role)
+        public async Task<string> GetUserName(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
-            return await _userManager.IsInRoleAsync(user, Role.ToString());
+            return user.UserName;
         }
 
-        public async Task<Result> SignInAsync(string userName, string password, bool isPersistent = false, bool lockOutOnFailure = false)
-        {
-            var result = await _signInManager.PasswordSignInAsync(userName, password, isPersistent, lockOutOnFailure);
-
-            return result.Succeeded ? Result.Success : Result.Failure;
-        }
-
-        public async Task SignOutAsync()
-        {
-            await _signInManager.SignOutAsync();
-        }
     }
 }
