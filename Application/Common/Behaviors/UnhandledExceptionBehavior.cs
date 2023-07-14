@@ -12,9 +12,9 @@ namespace Application.Common.Behaviors
     public class UnhandledExceptionBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
         private readonly ILogger<TRequest> _logger;
-        private readonly IUser _user;
+        private readonly ICurrentUser _user;
 
-        public UnhandledExceptionBehavior(ILogger<TRequest> logger, IUser user)
+        public UnhandledExceptionBehavior(ILogger<TRequest> logger, ICurrentUser user)
         {
             _logger = logger;
             _user = user;

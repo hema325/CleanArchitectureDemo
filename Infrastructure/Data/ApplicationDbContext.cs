@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Seeding;
 
 namespace Infrastructure.Data
 {
@@ -30,6 +31,7 @@ namespace Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            ModuleSeeder.Seed(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
 

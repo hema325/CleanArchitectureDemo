@@ -20,11 +20,33 @@ namespace Infrastructure.Services
             _userManager = userManager;
         }
 
-        public async Task<string> GetUserName(string userId)
+        public async Task<string> GetUserNameAsync(string id)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(id);
 
             return user.UserName;
+        }
+
+        public async Task<Result> CreateUserAsync(string userName,string password)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = userName,
+                Email = userName,
+            };
+
+            var result = await _userManager.CreateAsync(user, password);
+
+            return result.ToResult();
+        }
+
+        public async Task<Result> DeleteUserAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            var result = await _userManager.DeleteAsync(user);
+
+            return result.ToResult();
         }
 
     }

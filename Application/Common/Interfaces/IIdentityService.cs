@@ -9,6 +9,8 @@ namespace Infrastructure.Services.Identity
 {
     public interface IIdentityService
     {
-        Task<string> GetUserName(string userId);
+        Task<Result> CreateUserAsync(string userName, string password);
+        Task<Result> DeleteUserAsync(string id);
+        Task<string> GetUserNameAsync(string id);
     }
 }

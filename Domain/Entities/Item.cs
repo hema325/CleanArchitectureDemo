@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Item: BaseEntity
+    public class Item: BaseAuditableEntity
     {
         public string Name { get; set; }
     }

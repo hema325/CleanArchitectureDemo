@@ -13,11 +13,13 @@ namespace Infrastructure.Interceptors
 {
     public class AuditableEntitySaveChangesInterceptor: SaveChangesInterceptor
     {
-        private readonly IUser _user;
+        private readonly ICurrentUser _user;
+        private readonly IDateTime _dateTime;
 
-        public AuditableEntitySaveChangesInterceptor(IUser user)
+        public AuditableEntitySaveChangesInterceptor(ICurrentUser user, IDateTime dateTime)
         {
             _user = user;
+            _dateTime = dateTime;
         }
 
         public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
@@ -29,21 +31,24 @@ namespace Infrastructure.Interceptors
 
         private void MangeAddedEntities(ChangeTracker changeTracker)
         {
-            var addedEntries = changeTracker.Entries<BaseEntity>().Where(e => e.State == EntityState.Added);
+            var addedEntries = changeTracker.Entries<BaseAuditableEntity>().Where(e => e.State == EntityState.Added);
 
             foreach (var entry in addedEntries)
             {
+                entry.Entity.CreatedOn = _dateTime.Now;
                 entry.Entity.CreatedBy = _user.Id;
+                entry.Entity.ModifiedOn = _dateTime.Now;
                 entry.Entity.ModifiedBy = _user.Id;
             }
         }
 
         private void MangeModifiedEntities(ChangeTracker changeTracker)
         {
-            var modifiedEntries = changeTracker.Entries<BaseEntity>().Where(e => e.State == EntityState.Modified);
+            var modifiedEntries = changeTracker.Entries<BaseAuditableEntity>().Where(e => e.State == EntityState.Modified);
 
             foreach (var entry in modifiedEntries)
             {
+                entry.Entity.ModifiedOn = _dateTime.Now;
                 entry.Entity.ModifiedBy = _user.Id;
             }
         }

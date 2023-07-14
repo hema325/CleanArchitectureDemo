@@ -1,5 +1,4 @@
 ﻿using Application.Common.Interfaces;
-using Infrastructure.Services.Identity;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,25 +11,20 @@ namespace Application.Common.Behaviors
 {
     public class LogginBehavior<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
     {
-        private readonly IUser _user;
-        private readonly IIdentityService _identityService;
+        private readonly ICurrentUser _currentUser;
         private readonly ILogger<TRequest> _logger;
 
-        public LogginBehavior(IUser user, IIdentityService identityService, ILogger<TRequest> logger)
+        public LogginBehavior(ICurrentUser user, ILogger<TRequest> logger)
         {
-            _user = user;
-            _identityService = identityService;
+            _currentUser = user;
             _logger = logger;
         }
 
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var requestName = request.GetType().Name;
-            var userId = _user.Id;
-            var userName = string.Empty;
-
-            if (!string.IsNullOrEmpty(userId))
-                userName = await _identityService.GetUserName(userId);
+            var userId = _currentUser.Id;
+            var userName = _currentUser.UserName;
 
             var info = $"Request: {requestName} {userId} {userName} {request}";
 

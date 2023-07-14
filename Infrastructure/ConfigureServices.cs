@@ -26,7 +26,7 @@ namespace Infrastructure
             source.AddIdentity<ApplicationUser,ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             source.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-            source.AddScoped<IUser, UserService>();
+            source.AddScoped<ICurrentUser, CurrentUserService>();
             source.AddScoped<AuditableEntitySaveChangesInterceptor>();
             source.AddScoped<IIdentityService, IdentityService>();
             source.AddScoped<IDateTime, DateTimeService>();
