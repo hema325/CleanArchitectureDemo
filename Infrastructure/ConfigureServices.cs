@@ -3,17 +3,17 @@ using Infrastructure.Data;
 using Infrastructure.Models;
 using Infrastructure.Interceptors;
 using Infrastructure.Services;
-using Infrastructure.Services.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Infrastructure.Files;
+using Domain.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Infrastructure.Files;
 
 namespace Infrastructure
 {
@@ -28,9 +28,14 @@ namespace Infrastructure
             source.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
             source.AddScoped<ICurrentUser, CurrentUserService>();
             source.AddScoped<AuditableEntitySaveChangesInterceptor>();
-            source.AddScoped<IIdentityService, IdentityService>();
+            source.AddScoped<IAuthentication, AuthenticationService>();
+            source.AddScoped<IUser, UserService>();
             source.AddScoped<IDateTime, DateTimeService>();
             source.AddScoped(typeof(ICsvFileBuilder<>), typeof(CsvFileBuilder<>));
+            source.AddScoped<IEmailSender, EmailSender>();
+            source.AddScoped<ILinkGenerator, LinkGenerator>();
+            //source.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+
             return source;
         }
     }

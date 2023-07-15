@@ -15,12 +15,15 @@ namespace Infrastructure.Seeding
         {
             var firstRole = new ApplicationRole
             {
-                Name = Roles.Admin
+                Name = Roles.Admin,
+                NormalizedName = Roles.Admin.ToUpper()
+                
             };
 
             var secondRole = new ApplicationRole
             {
-                Name = Roles.User
+                Name = Roles.User,
+                NormalizedName = Roles.User.ToUpper()
             };
 
             builder.Entity<ApplicationRole>().HasData(firstRole, secondRole);

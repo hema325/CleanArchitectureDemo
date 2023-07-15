@@ -58,6 +58,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
@@ -73,6 +74,16 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -92,7 +103,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
@@ -270,15 +283,17 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b022a91a-5ec8-4928-a35b-9fc9a4338e83",
-                            ConcurrencyStamp = "d526c36f-2823-4fad-8d2b-9ef46b8f3714",
-                            Name = "Admin"
+                            Id = "689fb34f-08f0-4d2e-a1a6-5981e539a65d",
+                            ConcurrencyStamp = "c28ddbfb-5e3a-4c79-9ee0-c775957d3790",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a0b4ae74-767b-463b-9fba-5dcb35bec643",
-                            ConcurrencyStamp = "30febe35-8972-45ef-9bf6-c849c7285bff",
-                            Name = "User"
+                            Id = "7f305255-ccd6-4bd9-94df-a2379dffc019",
+                            ConcurrencyStamp = "8ea82e8d-bd2a-4e9f-bb14-d3377a545cad",
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 

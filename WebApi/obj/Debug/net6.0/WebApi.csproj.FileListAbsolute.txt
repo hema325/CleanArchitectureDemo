@@ -84,7 +84,6 @@ D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\System.CodeDom.dll
 D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\System.Text.Json.dll
 D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
-D:\Asp.netCoreMVC\CleanArchitecture\WebApi\obj\Debug\net6.0\WebApi.MvcApplicationPartsAssemblyInfo.cs
 D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

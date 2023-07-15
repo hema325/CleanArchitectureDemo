@@ -21,6 +21,7 @@ namespace WebApi.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> Get([FromQuery] GetItemsWithPaginationQuery request)
         {
+            Console.WriteLine(new { request.PageNumber, request.PageSize }.ToString());
             var items = await _mediator.Send(request);
 
             if (items == null)
