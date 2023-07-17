@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.SignUp
 {
-    public class SignUpCommandHandler : IRequestHandler<SignUpCommand, string>
+    internal class SignUpCommandHandler : IRequestHandler<SignUpCommand, string>
     {
         private readonly IUser _user;
 
@@ -21,7 +21,7 @@ namespace Application.Identity.Commands.SignUp
 
         public async Task<string> Handle(SignUpCommand request, CancellationToken cancellationToken)
         {
-            var user = new User
+            var user = new UserModel
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,

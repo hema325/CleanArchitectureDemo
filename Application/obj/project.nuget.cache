@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "orsi0z0pJymSXlfVlDkrQW0IAHPRJQ985Vk5OMZnXmYq+ShRSSsF5eRUc+0SycwyKcSJBoZlTHl9yBZc0A0njg==",
+  "dgSpecHash": "Rd9h53f4ScK4k+WzhVSFS/8Lg386q+0F0jEPg2QfGiaiQUsfeZwJO3KNekgJD2IqQJVKpSKkrBZsIwcLknQvIw==",
   "success": true,
   "projectFilePath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\hp\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.1.0\\mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.19\\microsoft.aspnetcore.cryptography.internal.6.0.19.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.19\\microsoft.aspnetcore.cryptography.keyderivation.6.0.19.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\6.0.19\\microsoft.aspnetcore.identity.entityframeworkcore.6.0.19.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.8\\microsoft.entityframeworkcore.7.0.8.nupkg.sha512",

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Queries.GetItemsWithPagination
 {
-    public class GetItemsWithPaginationQueryHandler : IRequestHandler<GetItemsWithPaginationQuery,PaginatedList<ItemBriefDTO>>
+    internal class GetItemsWithPaginationQueryHandler : IRequestHandler<GetItemsWithPaginationQuery,PaginatedList<ItemBriefDTO>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;

@@ -8,6 +8,6 @@ namespace Application.Common.Interfaces
 {
     public interface ILinkGenerator
     {
-        string Generate(string path, object queryString);
+        string GetUriByAction(string action, string controller, object values);
     }
 }

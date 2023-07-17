@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Files
 {
-    public class TRecordMap<TDestination>: ClassMap<TDestination>
+    internal class TRecordMap<TDestination>: ClassMap<TDestination>
     {
         public TRecordMap()
         {

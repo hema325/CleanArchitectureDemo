@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Behaviors
 {
-    public class LogginBehavior<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
+    internal class LogginBehavior<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
     {
         private readonly ICurrentUser _currentUser;
         private readonly ILogger<TRequest> _logger;

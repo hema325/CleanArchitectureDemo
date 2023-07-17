@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Files
 {
-    public class CsvFileBuilder<TRecord>:ICsvFileBuilder<TRecord> where TRecord : class
+    internal class CsvFileBuilder<TRecord>:ICsvFileBuilder<TRecord> where TRecord : class
     {
         public async Task<byte[]> BuildAsync(IEnumerable<TRecord> records)
         {

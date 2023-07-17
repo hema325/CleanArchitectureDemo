@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Queries.GetItemsInCsvFile
 {
-    public class GetItemsInCsvFileQueryHandler : IRequestHandler<GetItemsInCsvFileQuery, GetItemsInCsvFileVM>
+    internal class GetItemsInCsvFileQueryHandler : IRequestHandler<GetItemsInCsvFileQuery, GetItemsInCsvFileResponse>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -26,7 +26,7 @@ namespace Application.Items.Queries.GetItemsInCsvFile
             _dateTime = dateTime;
         }
 
-        public async Task<GetItemsInCsvFileVM> Handle(GetItemsInCsvFileQuery request, CancellationToken cancellationToken)
+        public async Task<GetItemsInCsvFileResponse> Handle(GetItemsInCsvFileQuery request, CancellationToken cancellationToken)
         {
             var items = await _context.Items.ProjectTo<ItemBriefDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
@@ -34,7 +34,7 @@ namespace Application.Items.Queries.GetItemsInCsvFile
             var fileContentType = "text/csv";
             var fileContent = await _csvFileBuilder.BuildAsync(items);
 
-            var vm = new GetItemsInCsvFileVM
+            var vm = new GetItemsInCsvFileResponse
             {
                 FileName = fileName,
                 ContentType = fileContentType,

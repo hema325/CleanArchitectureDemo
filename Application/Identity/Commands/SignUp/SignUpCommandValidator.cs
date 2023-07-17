@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.SignUp
 {
-    public class SignUpCommandValidator: AbstractValidator<SignUpCommand>
+    internal class SignUpCommandValidator: AbstractValidator<SignUpCommand>
     {
         public SignUpCommandValidator()
         {

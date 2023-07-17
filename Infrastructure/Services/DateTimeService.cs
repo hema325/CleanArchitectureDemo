@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public class DateTimeService : IDateTime
+    internal class DateTimeService : IDateTime
     {
         public DateTime Now => DateTime.UtcNow;
     }

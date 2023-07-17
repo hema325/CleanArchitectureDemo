@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.SignIn
 {
-    public class SignInCommandValidator: AbstractValidator<SignInCommand>
+    internal class SignInCommandValidator: AbstractValidator<SignInCommand>
     {
         public SignInCommandValidator()
         {
-            RuleFor(c => c.Email).MaximumLength(256).NotEmpty();
-            RuleFor(c => c.Password).NotEmpty();
-            RuleFor(c => c.RememberMe).NotEmpty();
+            RuleFor(c => c.Email).MaximumLength(256).NotEmpty().NotNull();
+            RuleFor(c => c.Password).NotEmpty().NotNull();
         }
     }
 }

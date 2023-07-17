@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.CreateEmailConfirmationToken
 {
-    public class CreateEmailConfirmationTokenCommandValidator: AbstractValidator<CreateEmailConfirmationTokenCommand>
+    internal class CreateEmailConfirmationTokenCommandValidator: AbstractValidator<CreateEmailConfirmationTokenCommand>
     {
         public CreateEmailConfirmationTokenCommandValidator()
         {

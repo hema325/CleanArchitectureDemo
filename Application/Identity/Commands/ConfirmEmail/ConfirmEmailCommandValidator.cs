@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.ConfirmEmail
 {
-    public class ConfirmEmailCommandValidator: AbstractValidator<ConfirmEmailCommand>
+    internal class ConfirmEmailCommandValidator: AbstractValidator<ConfirmEmailCommand>
     {
         public ConfirmEmailCommandValidator()
         {

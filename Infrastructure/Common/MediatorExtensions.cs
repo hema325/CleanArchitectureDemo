@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Common
 {
-    public static class MediatorExtensions
+    internal static class MediatorExtensions
     {
         public static async Task DispatchDomainEventsAsync(this IMediator source,ApplicationDbContext context, CancellationToken cancellationToken)
         {

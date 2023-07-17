@@ -1,8 +1,6 @@
 ﻿using Application.Common.Interfaces;
-using AutoMapper;
 using Domain.Entities;
 using Domain.Events.ItemEvents;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.CreateItem
 {
-    public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, int>
+    internal class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, int>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;

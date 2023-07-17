@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Common
 {
-    public static class SginInResultExtensions
+    internal static class SginInResultExtensions
     {
         public static Result ToResult(this SignInResult source)
         {

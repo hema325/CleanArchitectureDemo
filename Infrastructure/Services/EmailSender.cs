@@ -1,17 +1,19 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Settings;
+using Infrastructure.Settings;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public class EmailSender : IEmailSender
+    internal class EmailSender : IEmailSender
     {
         private readonly MailSettings _mailSettings;
         public EmailSender(IOptions<MailSettings> options)
@@ -19,19 +21,52 @@ namespace Infrastructure.Services
             _mailSettings = options.Value;
         }
 
-        public async Task SendAsync(MailMessage message)
+        public async Task SendAsync(string to, string subject, string body, IEnumerable<IFormFile> attachments = null)
         {
-            using var client = new SmtpClient()
+            var mimeMessage = await GetMimeMessage(to, subject, body, attachments);
+
+            await SendAsync(mimeMessage);
+        }
+
+        private async Task<MimeMessage> GetMimeMessage(string to, string subject, string body, IEnumerable<IFormFile> attachments)
+        {
+            var email = new MimeMessage
             {
-                Host = _mailSettings.Host,
-                Port = _mailSettings.Port,
-                Credentials = new NetworkCredential(_mailSettings.UserName, _mailSettings.Password),
-                EnableSsl = true
+                Sender = MailboxAddress.Parse(_mailSettings.UserName),
+                Subject = subject
             };
 
-            message.From = new MailAddress(_mailSettings.EmailFrom, _mailSettings.DisplayName);
+            email.To.Add(MailboxAddress.Parse(to));
+            email.From.Add(new MailboxAddress(_mailSettings.UserName, _mailSettings.DisplayName));
 
-            await client.SendMailAsync(message);
+            var bodyBuilder = new BodyBuilder();
+
+            bodyBuilder.HtmlBody = body;
+
+            if (attachments != null)
+            {
+                foreach (var attachment in attachments)
+                {
+                    using var ms = new MemoryStream();
+                    await attachment.CopyToAsync(ms);
+                    var attachmentBytes = ms.ToArray();
+
+                    bodyBuilder.Attachments.Add(attachment.FileName, attachmentBytes, ContentType.Parse(attachment.ContentType));
+                }
+            }
+
+            email.Body = bodyBuilder.ToMessageBody();
+
+            return email;
+        }
+
+        private async Task SendAsync(MimeMessage email)
+        {
+            var smtpClient = new SmtpClient();
+            await smtpClient.ConnectAsync(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
+            await smtpClient.AuthenticateAsync(_mailSettings.UserName, _mailSettings.Password);
+            await smtpClient.SendAsync(email);
+            await smtpClient.DisconnectAsync(true);
         }
     }
 }

@@ -1,6 +1,10 @@
 using Application;
-using Domain.Settings;
+using Application.Common.Interfaces;
+using Infrastructure.Settings;
 using Infrastructure;
+using WebApi.Services;
+using Microsoft.AspNetCore.Identity;
+using Infrastructure.Persistance.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUser, CurrentUserService>();
+builder.Services.AddScoped<ILinkGenerator, LinkGeneratorService>();
+
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 var app = builder.Build();
@@ -24,10 +31,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+using(var scope = app.Services.CreateScope())
+{
+    await scope.ServiceProvider.GetRequiredService<IDbInitializer>().InitializeAsync();
+}
 
 app.Run();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Mapping
 {
-    public class MappingProfile: Profile
+    internal class MappingProfile: Profile
     {
         public MappingProfile()
         {

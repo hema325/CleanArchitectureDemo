@@ -9,6 +9,7 @@ namespace Application.Common.Interfaces
 {
     public interface IAuthentication
     {
+        Task<Result> ConfirmEmailAsync(string id, string token);
         Task<string> GenerateEmailConfirmationTokenAsync(string email);
         Task<Result> SignInAsync(string userName, string password, bool rememberMe);
         Task SignInAsync(string Id);

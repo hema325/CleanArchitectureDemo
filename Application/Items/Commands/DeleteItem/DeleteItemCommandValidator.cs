@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.DeleteItem
 {
-    public class DeleteItemCommandValidator: AbstractValidator<DeleteItemCommand>
+    internal class DeleteItemCommandValidator: AbstractValidator<DeleteItemCommand>
     {
         public DeleteItemCommandValidator()
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.SignIn
 {
-    public class SignInCommandHandler : IRequestHandler<SignInCommand>
+    internal class SignInCommandHandler : IRequestHandler<SignInCommand>
     {
         private readonly IAuthentication _auth;
 

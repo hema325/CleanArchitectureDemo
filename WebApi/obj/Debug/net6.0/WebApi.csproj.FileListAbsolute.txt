@@ -278,3 +278,12 @@ D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\FluentValidation.dll
 D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
 D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\CsvHelper.dll
+D:\Asp.netCoreMVC\CleanArchitecture\WebApi\obj\Debug\net6.0\WebApi.MvcApplicationPartsAssemblyInfo.cs
+D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\MailKit.dll
+D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\MimeKit.dll
+D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\System.Formats.Asn1.dll
+D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\System.Text.Encoding.CodePages.dll
+D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\Asp.netCoreMVC\CleanArchitecture\WebApi\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Text.Encoding.CodePages.dll

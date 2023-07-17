@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.DeleteItem
 {
-    public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
+    internal class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
     {
         private readonly IApplicationDbContext _context;
 

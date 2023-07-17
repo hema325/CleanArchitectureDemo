@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.SignOut
 {
-    public class SignOutCommandHandler : IRequestHandler<SignOutCommand>
+    internal class SignOutCommandHandler : IRequestHandler<SignOutCommand>
     {
         private readonly IAuthentication _auth;
 

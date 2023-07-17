@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Common
 {
-    public static class IdentityResultExtesnsions
+    internal static class IdentityResultExtesnsions
     {
         public static Result ToResult(this IdentityResult source)
         {

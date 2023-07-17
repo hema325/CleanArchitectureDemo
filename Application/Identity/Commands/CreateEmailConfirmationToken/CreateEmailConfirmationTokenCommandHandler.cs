@@ -1,4 +1,5 @@
 ﻿using Application.Common.Exceptions;
+using Application.Common.Helpers;
 using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
@@ -11,12 +12,13 @@ using System.Threading.Tasks;
 
 namespace Application.Identity.Commands.CreateEmailConfirmationToken
 {
-    public class CreateEmailConfirmationTokenCommandHandler : IRequestHandler<CreateEmailConfirmationTokenCommand>
+    internal class CreateEmailConfirmationTokenCommandHandler : IRequestHandler<CreateEmailConfirmationTokenCommand>
     {
         private readonly IEmailSender _emailSender;
         private readonly IAuthentication _authentication;
         private readonly IUser _user;
         private readonly ILinkGenerator _linkGenerator;
+
 
         public CreateEmailConfirmationTokenCommandHandler(IEmailSender emailSender, IAuthentication authentication, IUser user, ILinkGenerator linkGenerator)
         {
@@ -30,10 +32,10 @@ namespace Application.Identity.Commands.CreateEmailConfirmationToken
         {
             var user = await _user.GetByEmailAsync(request.Email);
             if (user == null)
-                throw new NotFoundException(nameof(User), new { request.Email });
+                throw new NotFoundException(nameof(UserModel), new { request.Email });
 
             var token = await _authentication.GenerateEmailConfirmationTokenAsync(request.Email);
-            var link = _linkGenerator.Generate("/api/identity/confirmEmail", new { userId = user.Id,token = token });
+            var link = _linkGenerator.GetUriByAction("ConfirmEmail", "Identity", new { userId = user.Id, token = token });
 
             await SendEmailVerification(request.Email, link);
 
@@ -42,16 +44,17 @@ namespace Application.Identity.Commands.CreateEmailConfirmationToken
 
         private async Task SendEmailVerification(string to, string link)
         {
-            var message = new MailMessage
-            {
-                Subject = "Email Verification",
-                Body = $"Please <a href=\"{link}\">Click Here</a> To Verify Your Email",
-                IsBodyHtml = true,
-            };
+            var subject = "Email Verification";
+            var templatePath = PathHelper.GetFullPath("Infrastructure\\Templates\\EmailConfirmationPage.html");
+            var body = File.ReadAllText(templatePath).Replace("[ConfirmationLink]", link);
+            await _emailSender.SendAsync(to, subject, body);
+        }
 
-            message.To.Add(new MailAddress(to));
 
-            await _emailSender.SendAsync(message);
+        private string GetMainRootPath()
+        {
+            var mainRootPath = Directory.GetCurrentDirectory();
+            return mainRootPath.Remove(mainRootPath.LastIndexOf("\\"));
         }
     }
 }

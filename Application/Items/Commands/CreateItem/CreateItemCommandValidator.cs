@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.CreateItem
 {
-    public class CreateItemCommandValidator: AbstractValidator<CreateItemCommand>
+    internal class CreateItemCommandValidator: AbstractValidator<CreateItemCommand>
     {
         public CreateItemCommandValidator()
         {

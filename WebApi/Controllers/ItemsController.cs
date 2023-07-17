@@ -3,12 +3,15 @@ using Application.Items.Commands.DeleteItem;
 using Application.Items.Commands.UpdateItem;
 using Application.Items.Queries.GetItemsInCsvFile;
 using Application.Items.Queries.GetItemsWithPagination;
+using Domain.Constanst;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
 namespace WebApi.Controllers
-{
+{ 
+    [Authorize(Roles = $"{Roles.Admin}")]
     public class ItemsController : BaseApiController
     {
         private readonly IMediator _mediator;
@@ -60,9 +63,9 @@ namespace WebApi.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> Download()
         {
-            var fileVM = await _mediator.Send(new GetItemsInCsvFileQuery());
+            var response = await _mediator.Send(new GetItemsInCsvFileQuery());
 
-            return File(fileVM.Content, fileVM.ContentType, fileVM.FileName);
+            return File(response.Content, response.ContentType, response.FileName);
         }
 
     }
