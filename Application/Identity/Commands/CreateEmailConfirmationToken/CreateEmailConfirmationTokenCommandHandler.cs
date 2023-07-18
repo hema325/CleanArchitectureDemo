@@ -1,6 +1,7 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Helpers;
 using Application.Common.Interfaces;
+using Domain.Constanst;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -45,16 +46,9 @@ namespace Application.Identity.Commands.CreateEmailConfirmationToken
         private async Task SendEmailVerification(string to, string link)
         {
             var subject = "Email Verification";
-            var templatePath = PathHelper.GetFullPath("Infrastructure\\Templates\\EmailConfirmationPage.html");
+            var templatePath = PathHelper.GetFullPath(TemplatePaths.EmailConfirmation);
             var body = File.ReadAllText(templatePath).Replace("[ConfirmationLink]", link);
             await _emailSender.SendAsync(to, subject, body);
-        }
-
-
-        private string GetMainRootPath()
-        {
-            var mainRootPath = Directory.GetCurrentDirectory();
-            return mainRootPath.Remove(mainRootPath.LastIndexOf("\\"));
         }
     }
 }

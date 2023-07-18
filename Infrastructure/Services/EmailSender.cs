@@ -37,7 +37,7 @@ namespace Infrastructure.Services
             };
 
             email.To.Add(MailboxAddress.Parse(to));
-            email.From.Add(new MailboxAddress(_mailSettings.UserName, _mailSettings.DisplayName));
+            email.From.Add(new MailboxAddress(_mailSettings.DisplayName,_mailSettings.UserName));
 
             var bodyBuilder = new BodyBuilder();
 
