@@ -20,23 +20,15 @@ namespace Application.Common.Mapping
             var mapFromType = typeof(IMapFrom<>);
             var mapFromMappingMethodName = nameof(IMapFrom<object>.Mapping);
 
-            var mapToType = typeof(IMapTo<>);
-            var mapToMappingMethodName = nameof(IMapTo<object>.Mapping);
 
-            ApplyMappingsFromAssembly(mapFromType, mapFromMappingMethodName, assembly);
-            ApplyMappingsFromAssembly(mapToType, mapToMappingMethodName, assembly);
-        }
-
-        private void ApplyMappingsFromAssembly(Type mappingType, string mappingMethodName, Assembly assembly)
-        {
-            Func<Type, bool> mappingFilter = type => type.IsGenericType && type.GetGenericTypeDefinition() == mappingType.GetGenericTypeDefinition();
+            Func<Type, bool> mappingFilter = type => type.IsGenericType && type.GetGenericTypeDefinition() == mapFromType.GetGenericTypeDefinition();
 
             var types = assembly.GetExportedTypes().Where(type => type.GetInterfaces().Any(i => mappingFilter(i)));
 
             foreach (var type in types)
             {
                 var instance = Activator.CreateInstance(type);
-                var methodInfo = type.GetMethod(mappingMethodName);
+                var methodInfo = type.GetMethod(mapFromMappingMethodName);
 
                 if (methodInfo != null)
                     methodInfo.Invoke(instance, new object[] { this });
@@ -46,7 +38,7 @@ namespace Application.Common.Mapping
 
                     foreach (var interfaceType in interfaces)
                     {
-                        var interfaceMethodInfo = interfaceType.GetMethod(mappingMethodName);
+                        var interfaceMethodInfo = interfaceType.GetMethod(mapFromMappingMethodName);
 
                         interfaceMethodInfo?.Invoke(instance, new object[] { this });
                     }

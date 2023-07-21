@@ -9,6 +9,11 @@ namespace Application.Common.Exceptions
 {
     public class ValidationException: Exception
     {
+        public ValidationException():base("One Or More Validation Failures Have Occurred")
+        {
+
+        }
+
         public IDictionary<string, string[]> Errors { get; }
 
         public ValidationException(IEnumerable<ValidationFailure> failures)

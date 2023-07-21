@@ -1,6 +1,5 @@
 ﻿using Application.Common.Interfaces;
 using Infrastructure.Data;
-using Infrastructure.Models;
 using Infrastructure.Interceptors;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
@@ -12,10 +11,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Infrastructure.Identity.Services;
 using Infrastructure.Persistance.DbInitializer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Infrastructure.Identity;
 
 namespace Infrastructure
 {
@@ -41,7 +40,7 @@ namespace Infrastructure
             #endregion
 
             #region configurations
-            //source.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+            source.Configure<MailSettings>(configuration.GetSection(MailSettings.SectionName));
             #endregion
 
             return source;

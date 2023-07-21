@@ -11,7 +11,7 @@ using System.Globalization;
 
 namespace WebApi.Controllers
 { 
-    [Authorize(Roles = $"{Roles.Admin}")]
+    //[Authorize(Roles = $"{Roles.Admin}")]
     public class ItemsController : BaseApiController
     {
         private readonly IMediator _mediator;

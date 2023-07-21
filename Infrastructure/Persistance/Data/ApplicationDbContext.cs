@@ -1,12 +1,12 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
 using Infrastructure.Common;
-using Infrastructure.Models;
 using Infrastructure.Interceptors;
 using MediatR;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Infrastructure.Identity;
 
 namespace Infrastructure.Data
 {

@@ -12,6 +12,5 @@ namespace Application.Common.Models
         public string[] Errors { get; init; }
         
         public static Result Success => new Result { Succeeded = true, Errors = Array.Empty<string>() };
-        public static Result Failure => new Result { Succeeded = false, Errors = Array.Empty<string>() };
     }
 }

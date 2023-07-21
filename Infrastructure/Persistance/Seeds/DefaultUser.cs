@@ -1,5 +1,5 @@
 ﻿using Domain.Constanst;
-using Infrastructure.Models;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

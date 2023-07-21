@@ -8,6 +8,6 @@ namespace Domain.Entities
 {
     public class Item: BaseAuditableEntity
     {
-        public string Name { get; init; }
+        public string Name { get; set; }
     }
 }

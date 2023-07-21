@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Queries.GetItemsInCsvFile
 {
-    public class GetItemsInCsvFileQuery: IRequest<GetItemsInCsvFileResponse>
+    public class GetItemsInCsvFileQuery: IRequest<GetItemsInCsvFileVM>
     {
     }
 }

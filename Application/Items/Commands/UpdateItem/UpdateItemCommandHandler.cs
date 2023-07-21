@@ -12,15 +12,13 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.UpdateItem
 {
-    internal class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand>
+    public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand>
     {
         private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public UpdateItemCommandHandler(IApplicationDbContext context,IMapper mapper)
+        public UpdateItemCommandHandler(IApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         async Task<Unit> IRequestHandler<UpdateItemCommand, Unit>.Handle(UpdateItemCommand request, CancellationToken cancellationToken)
@@ -30,7 +28,7 @@ namespace Application.Items.Commands.UpdateItem
             if (item == null)
                 throw new NotFoundException(nameof(Item), new { Id = request.Id });
 
-            _mapper.Map(request, item);
+            item.Name = request.Name;
 
             item.AddDomainEvent(new ItemUpdatedEvent(item));
 

@@ -1,12 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Common.Behaviors
+﻿namespace Application.Common.Behaviors
 {
     internal class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
@@ -27,7 +19,7 @@ namespace Application.Common.Behaviors
                 var failures = result.Where(r => r.Errors.Any()).SelectMany(r => r.Errors);
 
                 if (failures.Any())
-                    throw new ValidationException(failures);
+                    throw new Exceptions.ValidationException(failures);
             }
 
             return await next();

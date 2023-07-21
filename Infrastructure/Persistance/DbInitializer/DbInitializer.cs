@@ -1,5 +1,5 @@
 ﻿using Infrastructure.Data;
-using Infrastructure.Models;
+using Infrastructure.Identity;
 using Infrastructure.Persistance.Seeds;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

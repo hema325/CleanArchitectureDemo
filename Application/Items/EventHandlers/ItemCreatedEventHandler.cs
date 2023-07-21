@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.EventHandlers
 {
-    internal class ItemCreatedEventHandler : INotificationHandler<ItemCreatedEvent>
+    public class ItemCreatedEventHandler : INotificationHandler<ItemCreatedEvent>
     {
         private readonly ILogger<ItemCreatedEventHandler> _logger;
 

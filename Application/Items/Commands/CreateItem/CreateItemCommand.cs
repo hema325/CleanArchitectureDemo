@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.CreateItem
 {
-    public class CreateItemCommand: IRequest<int>, IMapTo<Item>
+    public class CreateItemCommand: IRequest<int>
     {
         public string Name { get; set; }
     }

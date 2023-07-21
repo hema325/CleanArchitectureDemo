@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.EventHandlers
 {
-    internal class ItemDeletedEventHandler: INotificationHandler<ItemDeletedEvent>
+    public class ItemDeletedEventHandler: INotificationHandler<ItemDeletedEvent>
     {
         private readonly ILogger<ItemDeletedEventHandler> _logger;
 

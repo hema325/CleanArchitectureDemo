@@ -16,11 +16,11 @@ namespace Infrastructure.Common
             var entities = context.ChangeTracker.Entries<BaseEntity>().Where(e=>e.Entity.DomainEvents.Any()).Select(e=>e.Entity);
             var domainEvents = entities.SelectMany(e => e.DomainEvents);
 
-            foreach (var entity in entities)
-                entity.ClearDomainEvents();
-
             foreach(var domainEvent in domainEvents)
                 await source.Publish(domainEvent, cancellationToken);
+
+            foreach (var entity in entities)
+                entity.ClearDomainEvents();
         }
     }
 }

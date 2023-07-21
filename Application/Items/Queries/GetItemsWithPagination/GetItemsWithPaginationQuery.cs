@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Queries.GetItemsWithPagination
 {
-    public class GetItemsWithPaginationQuery: IRequest<PaginatedList<ItemBriefDTO>>
+    public class GetItemsWithPaginationQuery: IRequest<PaginatedList<GetItemWithPaginationDTO>>
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Queries.GetItemsWithPagination
 {
-    internal class GetItemsWithPaginationQueryHandler : IRequestHandler<GetItemsWithPaginationQuery,PaginatedList<ItemBriefDTO>>
+    internal class GetItemsWithPaginationQueryHandler : IRequestHandler<GetItemsWithPaginationQuery,PaginatedList<GetItemWithPaginationDTO>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -23,9 +23,9 @@ namespace Application.Items.Queries.GetItemsWithPagination
             _mapper = mapper;
         }
 
-        public async Task<PaginatedList<ItemBriefDTO>> Handle(GetItemsWithPaginationQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedList<GetItemWithPaginationDTO>> Handle(GetItemsWithPaginationQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Items.ProjectTo<ItemBriefDTO>(_mapper.ConfigurationProvider).PaginateAsync(request.PageNumber, request.PageSize);
+            return await _context.Items.ProjectTo<GetItemWithPaginationDTO>(_mapper.ConfigurationProvider).PaginateAsync(request.PageNumber, request.PageSize);
         }
     }
 }

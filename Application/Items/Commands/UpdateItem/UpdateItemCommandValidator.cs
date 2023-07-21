@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.UpdateItem
 {
-    internal class UpdateItemCommandValidator: AbstractValidator<UpdateItemCommand>
+    public class UpdateItemCommandValidator: AbstractValidator<UpdateItemCommand>
     {
         public UpdateItemCommandValidator()
         {

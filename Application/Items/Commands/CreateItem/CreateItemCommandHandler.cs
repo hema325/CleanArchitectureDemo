@@ -9,20 +9,21 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.CreateItem
 {
-    internal class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, int>
+    public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, int>
     {
         private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public CreateItemCommandHandler(IApplicationDbContext context,IMapper mapper)
+        public CreateItemCommandHandler(IApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<int> Handle(CreateItemCommand request, CancellationToken cancellationToken)
         {
-            var item = _mapper.Map<Item>(request);
+            var item = new Item
+            {
+                Name = request.Name
+            };
 
             item.AddDomainEvent(new ItemCreatedEvent(item));
 

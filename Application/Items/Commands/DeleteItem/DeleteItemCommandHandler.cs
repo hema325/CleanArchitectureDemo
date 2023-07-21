@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.DeleteItem
 {
-    internal class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
+    public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
     {
         private readonly IApplicationDbContext _context;
 
@@ -21,7 +21,7 @@ namespace Application.Items.Commands.DeleteItem
             _context = context;
         }
 
-         async Task<Unit> IRequestHandler<DeleteItemCommand, Unit>.Handle(DeleteItemCommand request, CancellationToken cancellationToken)
+        async Task<Unit> IRequestHandler<DeleteItemCommand, Unit>.Handle(DeleteItemCommand request, CancellationToken cancellationToken)
         {
             var item = await _context.Items.FindAsync(request.Id);
 
