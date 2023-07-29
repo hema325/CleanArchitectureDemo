@@ -3,20 +3,19 @@ using Application.Items.Commands.DeleteItem;
 using Application.Items.Commands.UpdateItem;
 using Application.Items.Queries.GetItemsInCsvFile;
 using Application.Items.Queries.GetItemsWithPagination;
-using Domain.Constanst;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
 namespace WebApi.Controllers
-{ 
-    //[Authorize(Roles = $"{Roles.Admin}")]
+{
+    //[Authorize]
     public class ItemsController : BaseApiController
     {
-        private readonly IMediator _mediator;
+        private readonly ISender _mediator;
 
-        public ItemsController(IMediator mediator)
+        public ItemsController(ISender mediator)
         {
             _mediator = mediator;
         }

@@ -1,4 +1,6 @@
 ﻿using Application.Common.Behaviors;
+using Application.Items.EventHandlers;
+using Domain.Common.Events;
 using FluentValidation;
 using MediatR;
 using MediatR.Pipeline;
@@ -17,11 +19,13 @@ namespace Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection source)
         {
             source.AddMediatR(Assembly.GetExecutingAssembly());
+            source.AddAutoMapper(Assembly.GetExecutingAssembly());
+            source.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
             source.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             source.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehavior<,>));
             source.AddScoped(typeof(IRequestPreProcessor<>), typeof(LogginBehavior<>));
-            source.AddAutoMapper(Assembly.GetExecutingAssembly());
-            source.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
             return source;
         }
     }

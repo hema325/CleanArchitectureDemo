@@ -1,10 +1,5 @@
 using Application;
-using Application.Common.Interfaces;
-using Infrastructure.Settings;
 using Infrastructure;
-using WebApi.Services;
-using Microsoft.AspNetCore.Identity;
-using Infrastructure.Persistance.DbInitializer;
 using WebApi.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,16 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add<ApiExceptionFilterAttribute>();
+    options.Filters.Add<GlobalExceptionFilterAttribute>();
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ICurrentUser, CurrentUserService>();
-builder.Services.AddScoped<ILinkGenerator, LinkGeneratorService>();
 
 var app = builder.Build();
 
@@ -33,18 +25,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+//custom middlewares
 
 app.MapControllers();
 
-using(var scope = app.Services.CreateScope())
-{
-    await scope.ServiceProvider.GetRequiredService<IDbInitializer>().InitializeAsync();
-}
+//initialise the database
+await app.Services.InitializeDatabaseAsync();
 
 app.Run();

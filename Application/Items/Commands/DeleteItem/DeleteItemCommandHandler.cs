@@ -1,37 +1,35 @@
 ﻿using Application.Common.Exceptions;
-using Application.Common.Interfaces;
-using AutoMapper;
+using Application.Common.Interfaces.Data;
+using Application.Common.Interfaces.Repositories;
+using Application.Items.Specifications;
+using Domain.Common.Events;
 using Domain.Entities;
-using Domain.Events.ItemEvents;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Items.Commands.DeleteItem
 {
     public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteItemCommandHandler(IApplicationDbContext context)
+        public DeleteItemCommandHandler(IApplicationDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         async Task<Unit> IRequestHandler<DeleteItemCommand, Unit>.Handle(DeleteItemCommand request, CancellationToken cancellationToken)
         {
-            var item = await _context.Items.FindAsync(request.Id);
+            var item = (await _unitOfWork.Items.GetBySpecificationAsync(new GetItemByIdSpecification(request.Id)))
+                .FirstOrDefault();
 
             if (item == null)
                 throw new NotFoundException(nameof(Item), new { Id = request.Id });
 
-            item.AddDomainEvent(new ItemDeletedEvent(item));
+            item.AddDomainEvent(new DeletedEvent<Item>(item));
 
-            _context.Items.Remove(item);
-            await _context.SaveChangesAsync(cancellationToken);
+            _unitOfWork.Items.Delete(item);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

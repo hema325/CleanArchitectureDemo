@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces.Identity;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;

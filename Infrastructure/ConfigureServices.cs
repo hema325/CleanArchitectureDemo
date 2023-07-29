@@ -1,20 +1,12 @@
-﻿using Application.Common.Interfaces;
-using Infrastructure.Data;
-using Infrastructure.Interceptors;
-using Infrastructure.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Infrastructure.Files;
-using Infrastructure.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Infrastructure.Persistance.DbInitializer;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Infrastructure.Identity;
+using Infrastructure.Persistance;
+using Infrastructure.Emails;
+using Infrastructure.Authentication;
+using Infrastructure.Common.Services;
+using Infrastructure.FileStorage;
+using Microsoft.AspNetCore.Builder;
+using Infrastructure.Persistance.Initialisers;
 
 namespace Infrastructure
 {
@@ -22,26 +14,21 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection source,IConfiguration configuration)
         {
-            #region Database
-            source.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default"),
-                builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-            source.AddIdentity<ApplicationUser, IdentityRole>(options=>options.SignIn.RequireConfirmedEmail = true).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-            #endregion
+            source.AddHttpContextAccessor();
+            source.AddAuthentication(configuration);
+            source.AddEmail(configuration);
+            source.AddFileStorage();
+            source.AddPersistence(configuration);
+            source.AddCommonServices();
 
-            #region scoped services
-            source.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-            source.AddScoped<AuditableEntitySaveChangesInterceptor>();
-            source.AddScoped<IAuthentication, AuthenticationService>();
-            source.AddScoped<IUser, UserService>();
-            source.AddScoped<IDateTime, DateTimeService>();
-            source.AddScoped(typeof(ICsvFileBuilder<>), typeof(CsvFileBuilder<>));
-            source.AddScoped<IEmailSender, EmailSender>();
-            source.AddScoped<IDbInitializer, DbInitializer>();
-            #endregion
+            return source;
+        }
 
-            #region configurations
-            source.Configure<MailSettings>(configuration.GetSection(MailSettings.SectionName));
-            #endregion
+        public async static Task<IServiceProvider> InitializeDatabaseAsync(this IServiceProvider source)
+        {
+            await source.CreateScope()
+                .ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>()
+                .InitializeAsync();
 
             return source;
         }

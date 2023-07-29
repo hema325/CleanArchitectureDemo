@@ -119,10 +119,6 @@
             "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[11.1.0, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.19, )"
             }
           },
           "imports": [
@@ -170,9 +166,6 @@
             "projectReferences": {
               "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj": {
                 "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj"
-              },
-              "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj"
               }
             }
           }
@@ -191,21 +184,25 @@
               "target": "Package",
               "version": "[30.0.1, )"
             },
+            "Fluid.Core": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.1.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.20, )"
             },
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
-            "Microsoft.AspNetCore.Identity": {
+            "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.19, )"
+              "version": "[2.2.5, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -224,6 +221,10 @@
             "MimeKit": {
               "target": "Package",
               "version": "[4.1.0, )"
+            },
+            "RazorEngineCore.Extensions": {
+              "target": "Package",
+              "version": "[0.3.0, )"
             }
           },
           "imports": [

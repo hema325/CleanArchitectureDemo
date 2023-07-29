@@ -1,20 +1,14 @@
-﻿using Application.Authentication.ConfirmEmail;
+﻿using Application.Authentication.Commands.RequestJwtToken;
+using Application.Authentication.ConfirmEmail;
 using Application.Authentication.CreateEmailConfirmationToken;
 using Application.Authentication.SignIn;
 using Application.Authentication.SignOut;
 using Application.Authentication.SignUp;
-using Application.Common.Interfaces;
-using Domain.Constanst;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
-using System.Reflection;
 
 namespace WebApi.Controllers
 {
-    [Authorize(Roles = Roles.Admin)]
     public class AuthController: BaseApiController
     {
         private readonly IMediator _mediator;
@@ -26,17 +20,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SignUp(SignUpCommand request)
-        {
-            var id = await _mediator.Send(request);
-            return Ok(id);
-        }
-
-        [HttpPost]
-        [Route("[action]")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SignIn(SignInCommand request)
+        public async Task<IActionResult> Register(RegisterCommand request)
         {
             await _mediator.Send(request);
             return NoContent();
@@ -44,7 +28,15 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> SignOut(SignOutCommand request)
+        public async Task<IActionResult> Authenticate(AuthenticateCommand request)
+        {
+            return Ok(await _mediator.Send(request));
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+
+        public async Task<IActionResult> RevokeToken(RevokeTokenCommand request)
         {
             await _mediator.Send(request);
             return NoContent();
@@ -52,16 +44,21 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SendEmailConfirmationToken(CreateEmailConfirmationTokenCommand request)
+        public async Task<IActionResult> RequestJwtToken(RequestJwtTokenCommand request)
+        {
+            return Ok(await _mediator.Send(request));
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> SendEmailConfirmationToken(SendEmailConfirmationCommand request)
         {
             await _mediator.Send(request);
-            return Ok();
+            return NoContent();
         }
 
         [HttpGet]
         [Route("[action]")]
-        [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailCommand request)
         { 
             await _mediator.Send(request);

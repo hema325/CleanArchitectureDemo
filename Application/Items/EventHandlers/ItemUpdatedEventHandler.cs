@@ -1,5 +1,6 @@
-﻿using Domain.Entities;
-using Domain.Events.ItemEvents;
+﻿using Domain.Common.Entities;
+using Domain.Common.Events;
+using Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.EventHandlers
 {
-    public class ItemUpdatedEventHandler: INotificationHandler<ItemUpdatedEvent>
+    public class ItemUpdatedEventHandler : INotificationHandler<UpdatedEvent<Item>>
     {
         private readonly ILogger<ItemUpdatedEventHandler> _logger;
 
@@ -19,9 +20,9 @@ namespace Application.Items.EventHandlers
             _logger = logger;
         }
 
-        public Task Handle(ItemUpdatedEvent notification, CancellationToken cancellationToken)
+        public Task Handle(UpdatedEvent<Item> notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Entity {nameof(Item)} ({notification.Item.Id}) has been updated successfully");
+            _logger.LogInformation("Entity {0} ({1}) has been updated successfully", nameof(Item), notification.Entity.Id);
 
             return Task.CompletedTask;
         }

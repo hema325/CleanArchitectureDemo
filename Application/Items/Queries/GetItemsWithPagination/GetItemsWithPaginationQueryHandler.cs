@@ -1,5 +1,5 @@
-﻿using Application.Common.Interfaces;
-using Application.Common.Mapping;
+﻿using Application.Common.Extensions;
+using Application.Common.Interfaces.Data;
 using Application.Common.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;

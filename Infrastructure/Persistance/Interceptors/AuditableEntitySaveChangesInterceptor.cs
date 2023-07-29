@@ -1,13 +1,10 @@
-﻿using Application.Common.Interfaces;
-using Domain.Common;
+﻿using Application.Common.Interfaces.Identity;
+using Application.Common.Interfaces.Services;
+using Domain.Common.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Interceptors
 {
@@ -31,7 +28,7 @@ namespace Infrastructure.Interceptors
 
         private void MangeAddedEntities(ChangeTracker changeTracker)
         {
-            var addedEntries = changeTracker.Entries<BaseAuditableEntity>().Where(e => e.State == EntityState.Added);
+            var addedEntries = changeTracker.Entries<AuditableEntity>().Where(e => e.State == EntityState.Added);
 
             foreach (var entry in addedEntries)
             {
@@ -44,7 +41,7 @@ namespace Infrastructure.Interceptors
 
         private void MangeModifiedEntities(ChangeTracker changeTracker)
         {
-            var modifiedEntries = changeTracker.Entries<BaseAuditableEntity>().Where(e => e.State == EntityState.Modified);
+            var modifiedEntries = changeTracker.Entries<AuditableEntity>().Where(e => e.State == EntityState.Modified);
 
             foreach (var entry in modifiedEntries)
             {

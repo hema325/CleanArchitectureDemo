@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces.Data;
+using Application.Common.Interfaces.Services;
 using Application.Items.Queries.GetItemsWithPagination;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Queries.GetItemsInCsvFile
 {
-    internal class GetItemsInCsvFileQueryHandler : IRequestHandler<GetItemsInCsvFileQuery, GetItemsInCsvFileVM>
+    internal class GetItemsInCsvFileQueryHandler : IRequestHandler<GetItemsInCsvFileQuery, GetItemsInCsvFileDTO>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -27,7 +28,7 @@ namespace Application.Items.Queries.GetItemsInCsvFile
             _dateTime = dateTime;
         }
 
-        public async Task<GetItemsInCsvFileVM> Handle(GetItemsInCsvFileQuery request, CancellationToken cancellationToken)
+        public async Task<GetItemsInCsvFileDTO> Handle(GetItemsInCsvFileQuery request, CancellationToken cancellationToken)
         {
             var items = await _context.Items.ProjectTo<GetItemWithPaginationDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
@@ -35,14 +36,14 @@ namespace Application.Items.Queries.GetItemsInCsvFile
             var fileContentType = "text/csv";
             var fileContent = await _csvFileBuilder.BuildAsync(items);
 
-            var vm = new GetItemsInCsvFileVM
+            var dto = new GetItemsInCsvFileDTO
             {
                 FileName = fileName,
                 ContentType = fileContentType,
                 Content = fileContent
             };
 
-            return vm;
+            return dto;
         }
     }
 }

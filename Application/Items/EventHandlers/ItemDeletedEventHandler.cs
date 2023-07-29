@@ -1,16 +1,11 @@
-﻿using Domain.Entities;
-using Domain.Events.ItemEvents;
-using MediatR;
+﻿using Domain.Common.Entities;
+using Domain.Common.Events;
+using Domain.Entities;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Items.EventHandlers
 {
-    public class ItemDeletedEventHandler: INotificationHandler<ItemDeletedEvent>
+    public class ItemDeletedEventHandler : INotificationHandler<DeletedEvent<Item>>
     {
         private readonly ILogger<ItemDeletedEventHandler> _logger;
 
@@ -19,9 +14,9 @@ namespace Application.Items.EventHandlers
             _logger = logger;
         }
 
-        public Task Handle(ItemDeletedEvent notification, CancellationToken cancellationToken)
+        public Task Handle(DeletedEvent<Item> notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Entity {nameof(Item)} ({notification.Item.Id}) has been deleted successfully");
+            _logger.LogInformation("Entity {0} ({1}) has been deleted successfully", nameof(Item), notification.Entity.Id);
 
             return Task.CompletedTask;
         }
