@@ -26,20 +26,18 @@ namespace Application.Authentication.SignUp
                 LastName = request.LastName,
                 UserName = request.Email,
                 Email = request.Email,
-                HashedPassword = _passwordHasher.HashPassword(request.Password)
+                HashedPassword = _passwordHasher.HashPassword(request.Password),
+                UserRoles = new List<UserRoles>
+                {
+                    new UserRoles
+                    {
+                        RoleId = (int)Roles.User
+                    }
+                }
             };
 
             await _unitOfWork.Users.CreateAsync(user);
             
-            var role = (await _unitOfWork.Roles.GetBySpecificationAsync(new GetRoleByNameSpecification(Roles.User))).FirstOrDefault();
-           
-            var userRoles = new UserRoles
-            {
-                UserId = user.Id,
-                RoleId = role.Id
-            };
-           await _unitOfWork.UserRoles.CreateAsync(userRoles);
-
             user.AddDomainEvent(new CreatedEvent<User>(user));
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

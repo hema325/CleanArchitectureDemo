@@ -1,10 +1,11 @@
 ﻿using Application.Authentication.Common.Specifications;
 using Application.Common.Email.Interfaces;
 using Application.Common.Exceptions;
+using Application.Common.Helpers;
 using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
-using Application.Models.Email;
+using Application.Common.Models;
 using Domain.Entities;
 using Domain.Enums;
 
@@ -14,21 +15,18 @@ namespace Application.Authentication.CreateEmailConfirmationToken
     {
         private readonly IEmailSender _emailSender;
         private readonly IEmailTemplate _emailTemplate;
-        private readonly ILinkGenerator _linkGenerator;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTime _dateTime;
         private readonly IRandomTokenGenerator _tokenProvider;
 
 
         public SendEmailConfirmationCommandHandler(IEmailSender emailSender,
-                                                   ILinkGenerator linkGenerator,
                                                    IUnitOfWork unitOfWork,
                                                    IDateTime dateTime,
                                                    IRandomTokenGenerator tokenProvider,
                                                    IEmailTemplate emailTemplate)
         {
             _emailSender = emailSender;
-            _linkGenerator = linkGenerator;
             _unitOfWork = unitOfWork;
             _dateTime = dateTime;
             _tokenProvider = tokenProvider;
@@ -54,7 +52,7 @@ namespace Application.Authentication.CreateEmailConfirmationToken
             await _unitOfWork.Tokens.CreateAsync(token);
             await _unitOfWork.SaveChangesAsync();
 
-            var link = _linkGenerator.GetUriByAction("ConfirmEmail", "Auth", new { userId = user.Id, token = token.Value });
+            var link = UrlHelper.AddLinkToQuery(request.CallbackUrl, new { userId = user.Id, token = token.Value });
 
             await SendEmailVerification(request.Email, link);
 
@@ -64,7 +62,7 @@ namespace Application.Authentication.CreateEmailConfirmationToken
         private async Task SendEmailVerification(string to, string link)
         {
             var subject = "Email Verification";
-            var body = await _emailTemplate.GetTemplateByName("EmailConfirmationTemplate", new EmailConfirmationTemplateViewModel { Url = link });
+            var body = await _emailTemplate.GetTemplateByName(EmailConfirmationTemplate.TemplateName, new EmailConfirmationTemplate { Url = link });
             await _emailSender.SendAsync(to, subject, body);
         }
     }

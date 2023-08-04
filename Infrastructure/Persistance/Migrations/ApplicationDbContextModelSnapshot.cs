@@ -33,13 +33,24 @@ namespace Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
+                    b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .HasMaxLength(450)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(450)");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedOn")
+                    b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -58,9 +69,39 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Default Name"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Permission");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "ReadOnly"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "ReadWrite"
                         });
                 });
 
@@ -71,10 +112,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -92,14 +129,39 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Person with admin role can do any thing on this api",
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Person with User role can do specific things on this api",
                             Name = "User"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.RolePermissions", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("RolePermissions");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            PermissionId = 2
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            PermissionId = 1
                         });
                 });
 
@@ -182,10 +244,10 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b1646e53-3600-44d9-9a61-a8ab8d1c519e",
+                            Id = "5d020992-ea6c-482c-85e2-16f68c09be1b",
                             Email = "admin@gmail.com",
                             FirstName = "ibrahim",
-                            HashedPassword = "AQAAAAEAACcQAAAAENYWmZZmD+6uJdgc+9pgg6VUCQlr6XlPkC4GqtrRHCm1e153Ga2Wk6XOymopQsyLeA==",
+                            HashedPassword = "AQAAAAEAACcQAAAAELFw7FOqmPFQZeGKxsD7LtwUg76xJFpgAKGZ4DdsGRlddKnXj/Yn2dCTilThoSrKXQ==",
                             IsEmailConfirmed = true,
                             LastName = "Moawad",
                             UserName = "admin@gmail.com"
@@ -209,9 +271,28 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b1646e53-3600-44d9-9a61-a8ab8d1c519e",
+                            UserId = "5d020992-ea6c-482c-85e2-16f68c09be1b",
                             RoleId = 1
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.RolePermissions", b =>
+                {
+                    b.HasOne("Domain.Entities.Permission", "Permission")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Role", "Role")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Domain.Entities.Token", b =>
@@ -242,8 +323,15 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Permission", b =>
+                {
+                    b.Navigation("RolePermissions");
+                });
+
             modelBuilder.Entity("Domain.Entities.Role", b =>
                 {
+                    b.Navigation("RolePermissions");
+
                     b.Navigation("UserRoles");
                 });
 

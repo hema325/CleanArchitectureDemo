@@ -21,23 +21,33 @@ namespace Infrastructure.Persistance.Seeding
 
         public void Seed(ModelBuilder builder)
         {
-            var roles = new[]
+            var permissions = Enum
+                .GetValues<Permissions>()
+                .Select(p => new Permission { Id = (int)p, Name = p.ToString() });
+
+            builder.Entity<Permission>().HasData(permissions);
+
+            var roles = Enum
+                .GetValues<Roles>()
+                .Select(r => new Role { Id = (int)r, Name = r.ToString() });
+
+            builder.Entity<Role>().HasData(roles);
+
+            var rolePermissions = new[]
             {
-                new Role
+                new RolePermissions
                 {
-                    Id = 1,
-                    Name = Roles.Admin.ToString(),
-                    Description = "Person with admin role can do any thing on this api"
+                    RoleId = (int)Roles.Admin,
+                    PermissionId = (int)Permissions.ReadWrite
                 },
-                new Role
+                new RolePermissions
                 {
-                    Id = 2,
-                    Name = Roles.User.ToString(),
-                    Description = "Person with User role can do specific things on this api"
+                    RoleId = (int)Roles.User,
+                    PermissionId = (int) Permissions.ReadOnly
                 }
             };
 
-            builder.Entity<Role>().HasData(roles);
+            builder.Entity<RolePermissions>().HasData(rolePermissions);
 
             var users = new[]
             {
@@ -60,7 +70,7 @@ namespace Infrastructure.Persistance.Seeding
                 new UserRoles
                 {
                     UserId = users[0].Id,
-                    RoleId = roles[0].Id
+                    RoleId = (int)Roles.Admin
                 }
             };
 

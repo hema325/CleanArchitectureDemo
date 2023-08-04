@@ -106,20 +106,6 @@
           "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll": {}
         }
       },
-      "Fluid.Core/2.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.FileProviders.Abstractions": "1.1.1",
-          "Parlot": "0.0.24",
-          "TimeZoneConverter": "6.0.1"
-        },
-        "compile": {
-          "lib/net6.0/Fluid.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0/Fluid.dll": {}
-        }
-      },
       "Humanizer/2.14.1": {
         "type": "package",
         "dependencies": {
@@ -882,7 +868,7 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Hosting.Server.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Http/2.2.0": {
+      "Microsoft.AspNetCore.Http/2.2.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
@@ -2423,15 +2409,6 @@
         },
         "runtime": {
           "lib/netstandard2.0/NuGet.Versioning.dll": {}
-        }
-      },
-      "Parlot/0.0.24": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.1/Parlot.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/Parlot.dll": {}
         }
       },
       "RazorEngineCore/2020.6.1": {
@@ -4073,15 +4050,6 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "TimeZoneConverter/6.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0/TimeZoneConverter.dll": {}
-        },
-        "runtime": {
-          "lib/net6.0/TimeZoneConverter.dll": {}
-        }
-      },
       "Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -4118,9 +4086,9 @@
         "dependencies": {
           "Application": "1.0.0",
           "CsvHelper": "30.0.1",
-          "Fluid.Core": "2.4.0",
           "MailKit": "4.1.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.20",
+          "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.8",
@@ -4279,37 +4247,6 @@
         "fluentvalidation.dependencyinjectionextensions.nuspec",
         "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll",
         "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.xml"
-      ]
-    },
-    "Fluid.Core/2.4.0": {
-      "sha512": "JlgYg+iS0XDK9Gm9AsnJwEkTjRn2lQTwqT3l8Mica9WoP0XRQ4cC+jgnHo4tWw6J1W5LF85nfFsbKeZoD1hPxQ==",
-      "type": "package",
-      "path": "fluid.core/2.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "fluid.core.2.4.0.nupkg.sha512",
-        "fluid.core.nuspec",
-        "lib/net5.0/Fluid.dll",
-        "lib/net5.0/Fluid.pdb",
-        "lib/net5.0/Fluid.xml",
-        "lib/net6.0/Fluid.dll",
-        "lib/net6.0/Fluid.pdb",
-        "lib/net6.0/Fluid.xml",
-        "lib/net7.0/Fluid.dll",
-        "lib/net7.0/Fluid.pdb",
-        "lib/net7.0/Fluid.xml",
-        "lib/netcoreapp3.1/Fluid.dll",
-        "lib/netcoreapp3.1/Fluid.pdb",
-        "lib/netcoreapp3.1/Fluid.xml",
-        "lib/netstandard2.0/Fluid.dll",
-        "lib/netstandard2.0/Fluid.pdb",
-        "lib/netstandard2.0/Fluid.xml",
-        "lib/netstandard2.1/Fluid.dll",
-        "lib/netstandard2.1/Fluid.pdb",
-        "lib/netstandard2.1/Fluid.xml",
-        "logo_64x64.png"
       ]
     },
     "Humanizer/2.14.1": {
@@ -5276,16 +5213,16 @@
         "microsoft.aspnetcore.hosting.server.abstractions.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Http/2.2.0": {
-      "sha512": "YogBSMotWPAS/X5967pZ+yyWPQkThxhmzAwyCHCSSldzYBkW5W5d6oPfBaPqQOnSHYTpSOSOkpZoAce0vwb6+A==",
+    "Microsoft.AspNetCore.Http/2.2.2": {
+      "sha512": "BAibpoItxI5puk7YJbIGj95arZueM8B8M5xT1fXBn3hb3L2G3ucrZcYXv1gXdaroLbntUs8qeV8iuBrpjQsrKw==",
       "type": "package",
-      "path": "microsoft.aspnetcore.http/2.2.0",
+      "path": "microsoft.aspnetcore.http/2.2.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.AspNetCore.Http.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Http.xml",
-        "microsoft.aspnetcore.http.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.http.2.2.2.nupkg.sha512",
         "microsoft.aspnetcore.http.nuspec"
       ]
     },
@@ -7859,21 +7796,6 @@
         "lib/netstandard2.0/NuGet.Versioning.xml",
         "nuget.versioning.6.3.1.nupkg.sha512",
         "nuget.versioning.nuspec"
-      ]
-    },
-    "Parlot/0.0.24": {
-      "sha512": "jdhTa3NK1Vy8CdiWitfIPfQfmg9KvEdrVSYU6wquPQxF4FfGGtuTZyeduUDWDwU51ql6X9o/mDpHqHQQUy5k6w==",
-      "type": "package",
-      "path": "parlot/0.0.24",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Parlot.dll",
-        "lib/netstandard2.0/Parlot.xml",
-        "lib/netstandard2.1/Parlot.dll",
-        "lib/netstandard2.1/Parlot.xml",
-        "parlot.0.0.24.nupkg.sha512",
-        "parlot.nuspec"
       ]
     },
     "RazorEngineCore/2020.6.1": {
@@ -12209,23 +12131,6 @@
         "ref/xamarinwatchos10/_._",
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
-      ]
-    },
-    "TimeZoneConverter/6.0.1": {
-      "sha512": "vvhLOgRSOvfq5fBv0/Dd1S3N7K2ibO5wp06B5AkuxUpXkgv2aDHw9jB5ZvPg83y9sy+jF9qE7qWybMK46BXBuw==",
-      "type": "package",
-      "path": "timezoneconverter/6.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net462/TimeZoneConverter.dll",
-        "lib/net462/TimeZoneConverter.xml",
-        "lib/net6.0/TimeZoneConverter.dll",
-        "lib/net6.0/TimeZoneConverter.xml",
-        "lib/netstandard2.0/TimeZoneConverter.dll",
-        "lib/netstandard2.0/TimeZoneConverter.xml",
-        "timezoneconverter.6.0.1.nupkg.sha512",
-        "timezoneconverter.nuspec"
       ]
     },
     "Application/1.0.0": {

@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces.Repositories;
 using Domain.Entities;
+using Infrastructure.Authentication.Constants;
 using Infrastructure.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +23,10 @@ namespace Infrastructure.Persistance.Repositories
             var user = await _context.Users
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
+                .ThenInclude(r => r.RolePermissions)
+                .ThenInclude(rp => rp.Permission)
                 .FirstOrDefaultAsync(u => u.Id == userId);
+
 
             return new Claim[]
             {
@@ -30,7 +34,24 @@ namespace Infrastructure.Persistance.Repositories
                 new Claim(ClaimTypes.Name,user.UserName),
                 new Claim(ClaimTypes.Email,user.Email)
             }
-            .Union(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.Role.Name)));
+            .Union(user.UserRoles
+                .Select(ur => new Claim(ClaimTypes.Role, ur.Role.Name)))
+            .Union(user.UserRoles
+                .Select(ur => ur.Role)
+                .SelectMany(r => r.RolePermissions)
+                .Select(rp => new Claim(CustomClaims.Permission, rp.Permission.Name)));
+        }
+
+        public async Task<User> GetUserRolesPermissionsByIdAsync(string userId)
+        {
+            var user = await _context.Users
+                .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .ThenInclude(r=>r.RolePermissions)
+                .ThenInclude(rp=>rp.Permission)
+                .FirstOrDefaultAsync(u=>u.Id == userId);
+
+            return user;
         }
     }
 }

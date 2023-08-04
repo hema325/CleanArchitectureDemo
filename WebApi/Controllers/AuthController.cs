@@ -7,13 +7,14 @@ using Application.Authentication.SignUp;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace WebApi.Controllers
 {
-    public class AuthController: BaseApiController
+    public class AuthController : BaseApiController
     {
-        private readonly IMediator _mediator;
+        private readonly ISender _mediator;
 
-        public AuthController(IMediator mediator)
+        public AuthController(ISender mediator)
         {
             _mediator = mediator;
         }
@@ -57,12 +58,13 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailCommand request)
-        { 
+        public async Task<IActionResult> ConfirmEmail(ConfirmEmailCommand request)
+        {
             await _mediator.Send(request);
             return NoContent();
         }
+
     }
 }

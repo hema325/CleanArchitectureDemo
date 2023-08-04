@@ -1,10 +1,9 @@
 ﻿using Application.Common.Interfaces.Identity;
 using Application.Common.Interfaces.Services;
-using Domain.Common.Entities;
+using Domain.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-
 
 namespace Infrastructure.Interceptors
 {
@@ -21,14 +20,18 @@ namespace Infrastructure.Interceptors
 
         public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
         {
-            MangeAddedEntities(eventData.Context.ChangeTracker);
-            MangeModifiedEntities(eventData.Context.ChangeTracker);
+            var changeTracker = eventData.Context.ChangeTracker;
+
+            MangeAddedEntities(changeTracker);
+            MangeModifiedEntities(changeTracker);
+            MangeDeletedEntities(changeTracker);
+
             return base.SavingChangesAsync(eventData, result, cancellationToken);
         }
 
         private void MangeAddedEntities(ChangeTracker changeTracker)
         {
-            var addedEntries = changeTracker.Entries<AuditableEntity>().Where(e => e.State == EntityState.Added);
+            var addedEntries = changeTracker.Entries<IAuditableEntity>().Where(e => e.State == EntityState.Added);
 
             foreach (var entry in addedEntries)
             {
@@ -41,12 +44,24 @@ namespace Infrastructure.Interceptors
 
         private void MangeModifiedEntities(ChangeTracker changeTracker)
         {
-            var modifiedEntries = changeTracker.Entries<AuditableEntity>().Where(e => e.State == EntityState.Modified);
+            var modifiedEntries = changeTracker.Entries<IAuditableEntity>().Where(e => e.State == EntityState.Modified);
 
             foreach (var entry in modifiedEntries)
             {
                 entry.Entity.ModifiedOn = _dateTime.Now;
                 entry.Entity.ModifiedBy = _user.Id;
+            }
+        }
+
+        private void MangeDeletedEntities(ChangeTracker changeTracker)
+        {
+            var modifiedEntries = changeTracker.Entries<ISoftDeletableEntity>().Where(e => e.State == EntityState.Deleted);
+
+            foreach (var entry in modifiedEntries)
+            {
+                entry.Entity.DeletedOn = _dateTime.Now;
+                entry.Entity.DeletedBy = _user.Id;
+                entry.State = EntityState.Modified;
             }
         }
     }

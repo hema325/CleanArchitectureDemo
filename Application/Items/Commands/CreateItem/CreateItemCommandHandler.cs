@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Data;
+using Application.Common.Interfaces.FilesStorage;
 using Application.Common.Interfaces.Repositories;
 using Domain.Common.Events;
 using Domain.Entities;
@@ -7,20 +8,21 @@ namespace Application.Items.Commands.CreateItem
 {
     public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, int>
     {
-        private readonly IApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IFileStorage _fileStorage;
 
-        public CreateItemCommandHandler(IApplicationDbContext context, IUnitOfWork unitOfWork)
+        public CreateItemCommandHandler(IUnitOfWork unitOfWork, IFileStorage fileStorage)
         {
-            _context = context;
             _unitOfWork = unitOfWork;
+            _fileStorage = fileStorage;
         }
 
         public async Task<int> Handle(CreateItemCommand request, CancellationToken cancellationToken)
         {
             var item = new Item
             {
-                Name = request.Name
+                Name = request.Name,
+                ImagePath = await _fileStorage.SaveAsync(request.Image)
             };
 
             item.AddDomainEvent(new CreatedEvent<Item>(item));

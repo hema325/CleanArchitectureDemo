@@ -8,6 +8,7 @@ namespace Application.Common.Models
 {
     public class EmailConfirmationTemplate
     {
+        public const string TemplateName = "EmailConfirmationTemplate";
         public string Url { get; set; }
     }
 }

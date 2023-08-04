@@ -17,8 +17,8 @@ namespace Domain.Entities
         public bool IsEmailConfirmed { get; set; }
         public string HashedPassword { get; set; }
 
-        public IEnumerable<UserRoles> UserRoles { get; set; }
-        public IEnumerable<Token> Tokens { get; set; }
+        public List<UserRoles> UserRoles { get; set; }
+        public List<Token> Tokens { get; set; }
 
     }
 }

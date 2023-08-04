@@ -11,8 +11,8 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string? Description { get; set; }
 
-        public IEnumerable<UserRoles> UserRoles { get; set; }
+        public List<UserRoles> UserRoles { get; set; }
+        public List<RolePermissions> RolePermissions { get; set; }
     }
 }

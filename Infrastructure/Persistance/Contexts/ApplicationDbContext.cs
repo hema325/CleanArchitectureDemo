@@ -6,6 +6,8 @@ using System.Reflection;
 using Application.Common.Interfaces.Data;
 using Infrastructure.Persistance.Extensions;
 using Infrastructure.Persistance.Seeding;
+using Infrastructure.Common.Extensions;
+using Domain.Common.Interfaces;
 
 namespace Infrastructure.Persistance.Context
 {
@@ -27,6 +29,7 @@ namespace Infrastructure.Persistance.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             _modelSeeder.Seed(modelBuilder);
+            modelBuilder.AppendGlobalQueryFilter<ISoftDeletableEntity>(e => e.DeletedOn == null);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
         }

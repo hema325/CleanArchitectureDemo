@@ -32,6 +32,7 @@ namespace Application.Authentication.SignOut
                 throw new InvalidTokenException();
 
             token.RevokedOn = _dateTime.Now;
+
             _unitOfWork.Tokens.Update(token);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

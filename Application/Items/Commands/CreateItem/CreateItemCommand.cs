@@ -1,6 +1,7 @@
 ﻿using Application.Common.Mapping;
 using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,5 +14,6 @@ namespace Application.Items.Commands.CreateItem
     public class CreateItemCommand: IRequest<int>
     {
         public string Name { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

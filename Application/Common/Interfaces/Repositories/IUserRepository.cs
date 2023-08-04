@@ -11,5 +11,6 @@ namespace Application.Common.Interfaces.Repositories
     public interface IUserRepository : IBaseRepository<User>
     {
         Task<IEnumerable<Claim>> GetUserClaimsAsync(string userId);
+        Task<User> GetUserRolesPermissionsByIdAsync(string userId);
     }
 }

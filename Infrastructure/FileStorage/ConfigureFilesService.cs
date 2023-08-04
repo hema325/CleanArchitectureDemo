@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application.Common.Interfaces.FilesStorage;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace Infrastructure.FileStorage
@@ -7,7 +8,7 @@ namespace Infrastructure.FileStorage
     {
         public static IServiceCollection AddFileStorage(this IServiceCollection source)
         {
-            
+            source.AddScoped<IFileStorage, LocalFileStorageService>();
 
             return source;
         }

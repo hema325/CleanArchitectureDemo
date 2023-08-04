@@ -46,11 +46,15 @@ namespace Application.Authentication.Commands.RequestJwtToken
                 Value = _tokenProvider.GeneratorToken(),
                 Type = TokenTypes.RefreshToken,
                 CreatedOn = _dateTime.Now,
-                ExpiresOn = _dateTime.Now.AddHours(1),
-                UserId = user.Id
+                ExpiresOn = _dateTime.Now.AddHours(1)
+            };
+            
+            user.Tokens = new List<Token>
+            {
+                refreshToken
             };
 
-            await _unitOfWork.Tokens.CreateAsync(refreshToken);
+            _unitOfWork.Users.Update(user);
             await _unitOfWork.SaveChangesAsync();
 
             var jwtTokenResult = await _jwtTokenGenerator.GenerateTokenAsync(await _unitOfWork.Users.GetUserClaimsAsync(user.Id));

@@ -1,4 +1,4 @@
-﻿using Domain.Common.Entities;
+﻿using Domain.Common.Interfaces;
 using Infrastructure.Persistance.Context;
 using MediatR;
 using System;
@@ -13,14 +13,11 @@ namespace Infrastructure.Persistance.Extensions
     {
         public static async Task DispatchDomainEventsAsync(this IMediator source, ApplicationDbContext context, CancellationToken cancellationToken)
         {
-            var entities = context.ChangeTracker.Entries<EntityBase>().Where(e => e.Entity.DomainEvents.Any()).Select(e => e.Entity);
+            var entities = context.ChangeTracker.Entries<IEntity>().Where(e => e.Entity.DomainEvents.Any()).Select(e => e.Entity);
             var domainEvents = entities.SelectMany(e => e.DomainEvents);
 
             foreach (var domainEvent in domainEvents)
                 await source.Publish(domainEvent, cancellationToken);
-
-            foreach (var entity in entities)
-                entity.ClearDomainEvents();
         }
     }
 }

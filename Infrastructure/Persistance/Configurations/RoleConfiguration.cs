@@ -14,7 +14,6 @@ namespace Infrastructure.Persistance.Configurations
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.Property(p => p.Name).HasMaxLength(24);
-            builder.Property(p => p.Description).HasMaxLength(450);
             builder.HasIndex(p => p.Name).IsUnique();
         }
     }
