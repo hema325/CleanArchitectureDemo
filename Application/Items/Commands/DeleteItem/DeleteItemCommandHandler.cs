@@ -7,7 +7,7 @@ using Domain.Entities;
 
 namespace Application.Items.Commands.DeleteItem
 {
-    public class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
+    internal class DeleteItemCommandHandler : IRequestHandler<DeleteItemCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
@@ -26,7 +26,7 @@ namespace Application.Items.Commands.DeleteItem
             if (item == null)
                 throw new NotFoundException(nameof(Item), new { Id = request.Id });
 
-            item.AddDomainEvent(new DeletedEvent<Item>(item));
+            item.AddDomainEvent(new EntityDeletedEvent<Item>(item));
 
             _unitOfWork.Items.Delete(item);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -5,6 +5,7 @@ using Application.Items.Specifications;
 using AutoMapper;
 using Domain.Common.Events;
 using Domain.Entities;
+using Domain.ValueObjects;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,12 @@ using System.Threading.Tasks;
 
 namespace Application.Items.Commands.UpdateItem
 {
-    public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand>
+    internal class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand>
     {
-        private readonly IApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateItemCommandHandler(IApplicationDbContext context, IUnitOfWork unitOfWork)
+        public UpdateItemCommandHandler(IUnitOfWork unitOfWork)
         {
-            _context = context;
             _unitOfWork = unitOfWork;
         }
 
@@ -33,9 +32,9 @@ namespace Application.Items.Commands.UpdateItem
             if (item == null)
                 throw new NotFoundException(nameof(Item), new { Id = request.Id });
 
-            item.Name = request.Name;
+            item.Name = Name.Create(request.Name);
 
-            item.AddDomainEvent(new UpdatedEvent<Item>(item));
+            item.AddDomainEvent(new EntityUpdatedEvent<Item>(item));
 
             _unitOfWork.Items.Update(item);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

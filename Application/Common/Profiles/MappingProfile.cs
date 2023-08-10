@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces.Mapping;
+﻿using Application.Common.Mapping;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -7,9 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Common.Mapping
+namespace Application.Common.Profiles
 {
-    internal class MappingProfile: Profile
+    internal class MappingProfile : Profile
     {
         public MappingProfile()
         {

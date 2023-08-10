@@ -1,4 +1,4 @@
-﻿using Domain.Common.Interfaces;
+﻿using Domain.Common.Contracts;
 using Infrastructure.Persistance.Context;
 using MediatR;
 using System;

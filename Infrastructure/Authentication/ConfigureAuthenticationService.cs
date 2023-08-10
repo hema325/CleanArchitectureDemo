@@ -6,6 +6,7 @@ using Infrastructure.Authentication.Permissions;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,11 +34,17 @@ namespace Infrastructure.Authentication
             source.AddSingleton<IAuthorizationHandler,PermissionAuthorizationHandler>();
             source.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 
-
-
             source.ConfigureOptions<JwtBearerOptionsConfiguration>();
             source.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
             source.Configure<ApiKeySettings>(configuration.GetSection(ApiKeySettings.SectionName));
+            return source;
+        }
+
+        public static IApplicationBuilder UseAuth(this IApplicationBuilder source)
+        {
+            source.UseAuthentication();
+            source.UseAuthorization();
+
             return source;
         }
     }

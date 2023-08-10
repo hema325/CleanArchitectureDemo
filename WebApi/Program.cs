@@ -1,6 +1,5 @@
 using Application;
 using Infrastructure;
-using WebApi.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Host.UseConfigurationFromInfrastructure();
 
 var app = builder.Build();
 
@@ -24,12 +24,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
-app.UseAuthorization();
-
 //custom middlewares
+app.UseInfrastructure();
 
 app.MapControllers();
+app.MapInfrastructure();
 
 //initialise the database
 await app.Services.InitializeDatabaseAsync();

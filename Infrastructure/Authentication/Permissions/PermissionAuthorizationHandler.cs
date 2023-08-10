@@ -1,50 +1,44 @@
-﻿using Application.Common.Interfaces.Repositories;
+﻿using Application.Common.Interfaces.Caching;
+using Application.Common.Interfaces.Repositories;
 using Infrastructure.Authentication.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Authentication.Permissions
 {
     public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {
-        /* every request we need to access the database which make it slow
-private readonly IUnitOfWork _unitOfWork;
-public PermissionAuthorizationHandler(IServiceProvider serviceProvider)
-{
-   _unitOfWork = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<IUnitOfWork>();
-}
-protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
-{
-   var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private readonly ICacheService _cacheService;
+        private readonly IUnitOfWork _unitOfWork; 
 
-   if (userId == null)
-       return;
-
-   var user = await _unitOfWork.Users.GetUserRolesPermissionsByIdAsync(userId);
-   var permissions = user.UserRoles
-       .Select(ur => ur.Role)
-       .SelectMany(r => r.RolePermissions)
-       .Select(rp => rp.Permission.Name);
-
-   if (permissions.Contains(requirement.Permission))
-       context.Succeed(requirement);
-}*/
-
-        //not good for long live jwt tokens
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
+        public PermissionAuthorizationHandler(IServiceProvider serviceProvider)
         {
-            var permission = context.User.FindAll(CustomClaims.Permission).Select(c => c.Value).ToHashSet();
+             serviceProvider = serviceProvider.CreateScope().ServiceProvider;
 
-            if (permission.Contains(requirement.Permission))
-                 context.Succeed(requirement);
+            _cacheService = serviceProvider.GetRequiredService<ICacheService>();
+            _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+        }
 
-            return Task.CompletedTask;
+        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
+        {
+            if (!context.User.Identity.IsAuthenticated) 
+                return;
+
+            var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var key = $"UserPermissions-{userId}";
+
+            var permissions = await _cacheService.GetAsync<IEnumerable<string>>(key);
+            if (permissions == null)
+            {
+                permissions = (await _unitOfWork.Permissions.GetByUserId(userId)).Select(p => p.Name);
+
+                await _cacheService.SetAsync(key, permissions);
+            }
+
+            if (permissions.Contains(requirement.Permission))
+                context.Succeed(requirement);
         }
     }
 }

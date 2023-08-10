@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Application.Authentication.SignIn
 {
-    public class AuthenticateCommandHandler : IRequestHandler<AuthenticateCommand, AuthResult>
+    internal class AuthenticateCommandHandler : IRequestHandler<AuthenticateCommand, AuthResult>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;

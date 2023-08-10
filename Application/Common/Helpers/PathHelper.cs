@@ -11,8 +11,6 @@ namespace Application.Common.Helpers
         public static string GetAbsolutePath(string relativePath)
         {
             var mainRootPath = Directory.GetCurrentDirectory();
-            mainRootPath = mainRootPath.Remove(mainRootPath.LastIndexOf("\\"));
-
             return Path.Combine(mainRootPath, relativePath);
         }
     }

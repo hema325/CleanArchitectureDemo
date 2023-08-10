@@ -13,7 +13,7 @@ namespace Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(p => p.Id).ValueGeneratedOnAdd().ValueGeneratedOnAdd();
+            builder.Property(p => p.Id).HasMaxLength(450).ValueGeneratedOnAdd().ValueGeneratedOnAdd();
             builder.Property(p => p.FirstName).HasMaxLength(24).IsRequired();
             builder.Property(p => p.LastName).HasMaxLength(24).IsRequired();
             builder.Property(p => p.UserName).HasMaxLength(255);

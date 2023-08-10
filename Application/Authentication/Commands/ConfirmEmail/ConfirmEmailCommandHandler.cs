@@ -1,21 +1,25 @@
 ﻿using Application.Authentication.Common.Specifications;
 using Application.Authentication.Exceptions;
+using Application.Common.Interfaces.Notifications;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
+using Application.Common.Models.Notifications.Email;
 using Domain.Enums;
 
 
 namespace Application.Authentication.ConfirmEmail
 {
-    public class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailCommand>
+    internal class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTime _dateTime;
+        private readonly IEmailNotificationSender _emailNotificationSender;
 
-        public ConfirmEmailCommandHandler(IUnitOfWork unitOfWork, IDateTime dateTime)
+        public ConfirmEmailCommandHandler(IUnitOfWork unitOfWork, IDateTime dateTime, IEmailNotificationSender emailNotificationSender)
         {
             _unitOfWork = unitOfWork;
             _dateTime = dateTime;
+            _emailNotificationSender = emailNotificationSender;
         }
 
         public async Task<Unit> Handle(ConfirmEmailCommand request, CancellationToken cancellationToken)
@@ -32,6 +36,8 @@ namespace Application.Authentication.ConfirmEmail
             _unitOfWork.Users.Update(user);
             _unitOfWork.Tokens.Update(token);
             await _unitOfWork.SaveChangesAsync();
+
+            await _emailNotificationSender.SendEmailConfirmedAsync(new EmailConfirmedNotification { Email = user.Email });
 
             return Unit.Value;
         }

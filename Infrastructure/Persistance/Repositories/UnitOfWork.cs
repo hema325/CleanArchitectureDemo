@@ -13,6 +13,7 @@ namespace Infrastructure.Persistance.Repositories
         public IRoleRepository Roles { get; }
         public ITokenRepository Tokens { get; }
         public IUserRolesRepository UserRoles { get; }
+        public IPermissionRepository Permissions { get; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -22,6 +23,7 @@ namespace Infrastructure.Persistance.Repositories
             Roles = new RoleRepository(_context);
             Tokens = new TokenRepository(_context);
             UserRoles = new UserRolesRepository(_context);
+            Permissions = new PermissionRepository(_context);
         }
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

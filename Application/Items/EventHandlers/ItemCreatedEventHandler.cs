@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.EventHandlers
 {
-    public class ItemCreatedEventHandler : INotificationHandler<CreatedEvent<Item>> 
+    public class ItemCreatedEventHandler : INotificationHandler<EntityCreatedEvent<Item>> 
     {
         private readonly ILogger<ItemCreatedEventHandler> _logger;
 
@@ -20,9 +20,9 @@ namespace Application.Items.EventHandlers
             _logger = logger;
         }
 
-        public Task Handle(CreatedEvent<Item> notification, CancellationToken cancellationToken)
+        public Task Handle(EntityCreatedEvent<Item> notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Entity {0} ({1}) has been created successfully",nameof(Item), notification.Entity.Id);
+            _logger.LogInformation("Entity {name} ({id}) has been created successfully,",nameof(Item));
 
             return Task.CompletedTask;
         }

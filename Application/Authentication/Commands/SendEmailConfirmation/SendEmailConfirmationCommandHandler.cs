@@ -5,32 +5,36 @@ using Application.Common.Helpers;
 using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
+using Application.Common.Interfaces.Templates;
 using Application.Common.Models;
 using Domain.Entities;
 using Domain.Enums;
 
 namespace Application.Authentication.CreateEmailConfirmationToken
 {
-    public class SendEmailConfirmationCommandHandler : IRequestHandler<SendEmailConfirmationCommand>
+    internal class SendEmailConfirmationCommandHandler : IRequestHandler<SendEmailConfirmationCommand>
     {
         private readonly IEmailSender _emailSender;
-        private readonly IEmailTemplate _emailTemplate;
+        private readonly ITemplate _emailTemplate;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTime _dateTime;
         private readonly IRandomTokenGenerator _tokenProvider;
+        private readonly ITemplateEnvironment _templateEnvironment;
 
 
         public SendEmailConfirmationCommandHandler(IEmailSender emailSender,
                                                    IUnitOfWork unitOfWork,
                                                    IDateTime dateTime,
                                                    IRandomTokenGenerator tokenProvider,
-                                                   IEmailTemplate emailTemplate)
+                                                   ITemplate emailTemplate,
+                                                   ITemplateEnvironment templateEnvironment)
         {
             _emailSender = emailSender;
             _unitOfWork = unitOfWork;
             _dateTime = dateTime;
             _tokenProvider = tokenProvider;
             _emailTemplate = emailTemplate;
+            _templateEnvironment = templateEnvironment;
         }
 
         public async Task<Unit> Handle(SendEmailConfirmationCommand request, CancellationToken cancellationToken)
@@ -62,7 +66,7 @@ namespace Application.Authentication.CreateEmailConfirmationToken
         private async Task SendEmailVerification(string to, string link)
         {
             var subject = "Email Verification";
-            var body = await _emailTemplate.GetTemplateByName(EmailConfirmationTemplate.TemplateName, new EmailConfirmationTemplate { Url = link });
+            var body = await _emailTemplate.GetTemplateByNameAsync(_templateEnvironment.EmailConfirmationTemplate, new EmailConfirmation { Url = link });
             await _emailSender.SendAsync(to, subject, body);
         }
     }

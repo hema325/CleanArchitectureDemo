@@ -1,6 +1,6 @@
 ﻿using Application.Common.Interfaces.Identity;
 using Application.Common.Interfaces.Services;
-using Domain.Common.Interfaces;
+using Domain.Common.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -24,7 +24,7 @@ namespace Infrastructure.Interceptors
 
             MangeAddedEntities(changeTracker);
             MangeModifiedEntities(changeTracker);
-            MangeDeletedEntities(changeTracker);
+            MangeSoftDeletedEntities(changeTracker);
 
             return base.SavingChangesAsync(eventData, result, cancellationToken);
         }
@@ -53,15 +53,22 @@ namespace Infrastructure.Interceptors
             }
         }
 
-        private void MangeDeletedEntities(ChangeTracker changeTracker)
+        private void MangeSoftDeletedEntities(ChangeTracker changeTracker)
         {
             var modifiedEntries = changeTracker.Entries<ISoftDeletableEntity>().Where(e => e.State == EntityState.Deleted);
 
-            foreach (var entry in modifiedEntries)
+            foreach (var entry in changeTracker.Entries())
             {
-                entry.Entity.DeletedOn = _dateTime.Now;
-                entry.Entity.DeletedBy = _user.Id;
-                entry.State = EntityState.Modified;
+                if (entry.Entity is ISoftDeletableEntity entity)
+                {
+                    entry.State = EntityState.Unchanged;
+                    entity.DeletedOn = _dateTime.Now;
+                    entity.DeletedBy = _user.Id;
+                }
+                else if(entry.Metadata.IsOwned() && entry.Metadata.FindOwnership().PrincipalEntityType.ClrType.IsAssignableTo(typeof(ISoftDeletableEntity)))
+                {
+                    entry.State = EntityState.Unchanged;
+                }
             }
         }
     }

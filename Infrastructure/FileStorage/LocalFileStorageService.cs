@@ -1,11 +1,7 @@
 ﻿using Application.Common.Helpers;
 using Application.Common.Interfaces.FilesStorage;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.FileStorage
 {
@@ -14,12 +10,12 @@ namespace Infrastructure.FileStorage
         public async Task<string> SaveAsync(IFormFile file)
         {
             var fileName = string.Concat(Guid.NewGuid().ToString(), Path.GetExtension(file.FileName));
-            var fileType = Capitalize(file.ContentType.Substring(0, file.ContentType.IndexOf('/')));
+            var fileType = Capitalize(file.ContentType.Substring(0, file.ContentType.IndexOf('/')) + 's');
 
-            var fileDirectoryRelativePath = $"WebApi\\Files\\{fileType}s";
-            var fileDirectoryAbsolutePath = PathHelper.GetAbsolutePath($"WebApi\\Files\\{fileType}s");
+            var fileDirectoryRelativePath = Path.Combine(FileStorageConstants.Root, fileType);
+            var fileDirectoryAbsolutePath = PathHelper.GetAbsolutePath(Path.Combine(FileStorageConstants.Root, fileType));
 
-            var fileRelativePath = $"{fileDirectoryRelativePath}\\{fileName}";
+            var fileRelativePath = Path.Combine(fileDirectoryRelativePath, fileName);
             var fileAbsolutePath = PathHelper.GetAbsolutePath(fileRelativePath);
 
             if (!Directory.Exists(fileDirectoryAbsolutePath))

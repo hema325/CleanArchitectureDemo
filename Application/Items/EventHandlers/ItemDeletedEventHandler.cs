@@ -1,11 +1,10 @@
-﻿using Domain.Common.Entities;
-using Domain.Common.Events;
+﻿using Domain.Common.Events;
 using Domain.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Items.EventHandlers
 {
-    public class ItemDeletedEventHandler : INotificationHandler<DeletedEvent<Item>>
+    public class ItemDeletedEventHandler : INotificationHandler<EntityDeletedEvent<Item>>
     {
         private readonly ILogger<ItemDeletedEventHandler> _logger;
 
@@ -14,9 +13,9 @@ namespace Application.Items.EventHandlers
             _logger = logger;
         }
 
-        public Task Handle(DeletedEvent<Item> notification, CancellationToken cancellationToken)
+        public Task Handle(EntityDeletedEvent<Item> notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Entity {0} ({1}) has been deleted successfully", nameof(Item), notification.Entity.Id);
+            _logger.LogInformation("Entity {name} ({id}) has been deleted successfully", nameof(Item), notification.Entity.Id);
 
             return Task.CompletedTask;
         }

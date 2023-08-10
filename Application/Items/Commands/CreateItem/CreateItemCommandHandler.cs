@@ -3,10 +3,11 @@ using Application.Common.Interfaces.FilesStorage;
 using Application.Common.Interfaces.Repositories;
 using Domain.Common.Events;
 using Domain.Entities;
+using Domain.ValueObjects;
 
 namespace Application.Items.Commands.CreateItem
 {
-    public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, int>
+    internal class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, int>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileStorage _fileStorage;
@@ -21,11 +22,11 @@ namespace Application.Items.Commands.CreateItem
         {
             var item = new Item
             {
-                Name = request.Name,
+                Name = Name.Create(request.Name),
                 ImagePath = await _fileStorage.SaveAsync(request.Image)
             };
 
-            item.AddDomainEvent(new CreatedEvent<Item>(item));
+            item.AddDomainEvent(new EntityCreatedEvent<Item>(item));
 
             await _unitOfWork.Items.CreateAsync(item);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

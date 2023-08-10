@@ -13,6 +13,7 @@ namespace Application.Common.Interfaces.Repositories
         IRoleRepository Roles { get; }
         ITokenRepository Tokens { get; }
         IUserRolesRepository UserRoles { get; }
+        IPermissionRepository Permissions { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

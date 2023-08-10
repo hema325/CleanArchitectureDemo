@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces.Authentication;
 using Domain.Entities;
 using Domain.Enums;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -80,12 +81,22 @@ namespace Infrastructure.Persistance.Seeding
             {
                 new Item
                 {
-                    Id = 1,
-                    Name = "Default Name"
+                    Id = 1
                 }
             };
 
             builder.Entity<Item>().HasData(items);
+
+            var itemsNames = new[]
+            {
+                new
+                {
+                    ItemId = 1,
+                    Value = "Default Name"
+                }
+            };
+
+            builder.Entity<Item>().OwnsOne(i => i.Name).HasData(itemsNames);
         }
     }
 }

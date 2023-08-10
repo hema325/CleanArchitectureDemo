@@ -20,8 +20,9 @@ namespace Infrastructure.Persistance
     {
         public static IServiceCollection AddPersistence(this IServiceCollection source, IConfiguration configuration)
         {
-            source.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default"),
-                builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+            source.AddDbContext<ApplicationDbContext>((sp,options) => options.UseSqlServer(configuration.GetConnectionString("Default"),
+                builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
+                           .AddInterceptors(sp.GetRequiredService<AuditableEntitySaveChangesInterceptor>()));
 
             source.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
             source.AddScoped<AuditableEntitySaveChangesInterceptor>();

@@ -7,21 +7,19 @@ using Application.Common.Interfaces.Data;
 using Infrastructure.Persistance.Extensions;
 using Infrastructure.Persistance.Seeding;
 using Infrastructure.Common.Extensions;
-using Domain.Common.Interfaces;
+using Domain.Common.Contracts;
+using Infrastructure.Persistance.Configurations;
 
 namespace Infrastructure.Persistance.Context
 {
     internal class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
         private readonly IMediator _mediator;
         private readonly ModelSeeder _modelSeeder;
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,
-            AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor,
             IMediator mediator,
             ModelSeeder modelSeeder) : base(options)
         {
-            _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
             _mediator = mediator;
             _modelSeeder = modelSeeder;
         }
@@ -31,13 +29,8 @@ namespace Infrastructure.Persistance.Context
             _modelSeeder.Seed(modelBuilder);
             modelBuilder.AppendGlobalQueryFilter<ISoftDeletableEntity>(e => e.DeletedOn == null);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            AuditableEntityConfiguration.Configure(modelBuilder);
             base.OnModelCreating(modelBuilder);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.AddInterceptors(_auditableEntitySaveChangesInterceptor);
-            base.OnConfiguring(optionsBuilder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -51,5 +44,6 @@ namespace Infrastructure.Persistance.Context
         public DbSet<Token> Tokens { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
     }
 }

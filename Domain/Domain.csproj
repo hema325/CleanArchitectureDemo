@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="AggregateRoots\" />
     <Folder Include="Constants\" />
-    <Folder Include="ValueObjects\" />
   </ItemGroup>
 
 </Project>

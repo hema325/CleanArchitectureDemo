@@ -26,9 +26,11 @@ namespace Application.Common.Behaviors
             var userId = _currentUser.Id;
             var userName = _currentUser.UserName;
 
-            var info = $"Request: {requestName} {userId} {userName} {request}";
-
-            _logger.LogInformation(info);
+            _logger.LogInformation("Request: {requestName} {userId} {userName} {request}",
+                                   requestName,
+                                   userId,
+                                   userName,
+                                   request);
         }
     }
 }

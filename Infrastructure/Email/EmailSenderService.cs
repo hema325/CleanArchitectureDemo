@@ -5,18 +5,14 @@ using MailKit.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Services.Email
 {
     internal class EmailSenderService : IEmailSender
     {
-        private readonly MailSettings _mailSettings;
-        public EmailSenderService(IOptions<MailSettings> options)
+        private readonly EmailSettings _mailSettings;
+        public EmailSenderService(IOptions<EmailSettings> options)
         {
             _mailSettings = options.Value;
         }
@@ -62,11 +58,11 @@ namespace Infrastructure.Services.Email
 
         private async Task SendAsync(MimeMessage email)
         {
-            var smtpClient = new SmtpClient();
+            using var smtpClient = new SmtpClient();
             await smtpClient.ConnectAsync(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
             await smtpClient.AuthenticateAsync(_mailSettings.UserName, _mailSettings.Password);
             await smtpClient.SendAsync(email);
-            await smtpClient.DisconnectAsync(true);
+            //await smtpClient.DisconnectAsync(true);
         }
     }
 }

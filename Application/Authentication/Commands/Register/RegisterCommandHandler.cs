@@ -7,7 +7,7 @@ using Domain.Enums;
 
 namespace Application.Authentication.SignUp
 {
-    public class RegisterCommandHandler : IRequestHandler<RegisterCommand>
+    internal class RegisterCommandHandler : IRequestHandler<RegisterCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordHasher _passwordHasher;
@@ -38,7 +38,7 @@ namespace Application.Authentication.SignUp
 
             await _unitOfWork.Users.CreateAsync(user);
             
-            user.AddDomainEvent(new CreatedEvent<User>(user));
+            user.AddDomainEvent(new EntityCreatedEvent<User>(user));
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

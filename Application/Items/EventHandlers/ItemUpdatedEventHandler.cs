@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Items.EventHandlers
 {
-    public class ItemUpdatedEventHandler : INotificationHandler<UpdatedEvent<Item>>
+    public class ItemUpdatedEventHandler : INotificationHandler<EntityUpdatedEvent<Item>>
     {
         private readonly ILogger<ItemUpdatedEventHandler> _logger;
 
@@ -20,9 +20,9 @@ namespace Application.Items.EventHandlers
             _logger = logger;
         }
 
-        public Task Handle(UpdatedEvent<Item> notification, CancellationToken cancellationToken)
+        public Task Handle(EntityUpdatedEvent<Item> notification, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Entity {0} ({1}) has been updated successfully", nameof(Item), notification.Entity.Id);
+            _logger.LogInformation("Entity {name} ({id}) has been updated successfully", nameof(Item), notification.Entity.Id);
 
             return Task.CompletedTask;
         }

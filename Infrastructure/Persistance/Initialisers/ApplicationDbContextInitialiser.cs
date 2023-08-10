@@ -17,8 +17,11 @@ namespace Infrastructure.Persistance.Initialisers
 
         public async Task InitializeAsync()
         {
-            await _context.Database.MigrateAsync();
-            _logger.LogInformation("Data base is initialised successfully");
+            if (_context.Database.GetMigrations().Any())
+            {
+                await _context.Database.MigrateAsync();
+                _logger.LogInformation("Data base is initialised successfully");
+            }
         }
     }
 }

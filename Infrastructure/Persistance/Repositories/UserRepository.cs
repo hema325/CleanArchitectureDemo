@@ -42,16 +42,5 @@ namespace Infrastructure.Persistance.Repositories
                 .Select(rp => new Claim(CustomClaims.Permission, rp.Permission.Name)));
         }
 
-        public async Task<User> GetUserRolesPermissionsByIdAsync(string userId)
-        {
-            var user = await _context.Users
-                .Include(u => u.UserRoles)
-                .ThenInclude(ur => ur.Role)
-                .ThenInclude(r=>r.RolePermissions)
-                .ThenInclude(rp=>rp.Permission)
-                .FirstOrDefaultAsync(u=>u.Id == userId);
-
-            return user;
-        }
     }
 }

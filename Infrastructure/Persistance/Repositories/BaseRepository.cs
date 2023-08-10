@@ -16,14 +16,14 @@ namespace Infrastructure.Persistance.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(TEntity entity)
-            => await _context.Set<TEntity>().AddAsync(entity);
+        public virtual async Task CreateAsync(TEntity entity)
+            => await _context.AddAsync(entity);
 
-        public void Delete(TEntity entity)
-            => _context.Set<TEntity>().Remove(entity);
+        public virtual void Delete(TEntity entity)
+            => _context.Remove(entity);
 
-        public void Update(TEntity entity)
-            => _context.Set<TEntity>().Update(entity);
+        public virtual void Update(TEntity entity)
+            => _context.Update(entity);
 
         public async Task<IEnumerable<TEntity>> GetBySpecificationAsync(ISpecification<TEntity> specification)
         {
@@ -51,7 +51,7 @@ namespace Infrastructure.Persistance.Repositories
                     query = query.Take(specification.Take.Value);
             }
 
-            return await query.AsNoTracking().ToListAsync();
+            return await query.ToListAsync();
         }
     }
 }

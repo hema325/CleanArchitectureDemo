@@ -31,9 +31,11 @@ namespace Application.Common.Behaviors
                 var requestName = request.GetType().Name;
                 var userId = _user.Id;
 
-                var error = $"Unhandled exception for request {requestName} {userId} {request} ,message: {ex.Message}";
-
-                _logger.LogError(error);
+                _logger.LogError("Unhandled exception for request {requestName} {userId} {request} ,message: {message}",
+                                 requestName,
+                                 userId,
+                                 request,
+                                 ex.Message);
 
                 throw;
             }

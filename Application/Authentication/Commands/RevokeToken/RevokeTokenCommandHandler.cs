@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Authentication.SignOut
 {
-    public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand>
+    internal class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTime _dateTime;

@@ -31,13 +31,15 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
@@ -48,28 +50,20 @@ namespace Infrastructure.Migrations
                         .HasColumnType("varchar(450)");
 
                     b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Items");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Name = "Default Name"
+                            Id = 1
                         });
                 });
 
@@ -90,7 +84,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Permission");
+                    b.ToTable("Permissions");
 
                     b.HasData(
                         new
@@ -208,6 +202,7 @@ namespace Infrastructure.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
@@ -244,10 +239,10 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5d020992-ea6c-482c-85e2-16f68c09be1b",
+                            Id = "7969ddef-596e-4849-9765-8cf8feddab32",
                             Email = "admin@gmail.com",
                             FirstName = "ibrahim",
-                            HashedPassword = "AQAAAAEAACcQAAAAELFw7FOqmPFQZeGKxsD7LtwUg76xJFpgAKGZ4DdsGRlddKnXj/Yn2dCTilThoSrKXQ==",
+                            HashedPassword = "AQAAAAEAACcQAAAAECBIlpTEuFJrDKQuyEwri2deVIJEUxUWLRwJuiounbm2dQaytfqQ/wrjOx5qCBbpqg==",
                             IsEmailConfirmed = true,
                             LastName = "Moawad",
                             UserName = "admin@gmail.com"
@@ -271,9 +266,44 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "5d020992-ea6c-482c-85e2-16f68c09be1b",
+                            UserId = "7969ddef-596e-4849-9765-8cf8feddab32",
                             RoleId = 1
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Item", b =>
+                {
+                    b.OwnsOne("Domain.ValueObjects.Name", "Name", b1 =>
+                        {
+                            b1.Property<int>("ItemId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Value")
+                                .HasMaxLength(250)
+                                .HasColumnType("nvarchar(250)")
+                                .HasColumnName("Name");
+
+                            b1.HasKey("ItemId");
+
+                            b1.HasIndex("Value")
+                                .IsUnique()
+                                .HasFilter("[Name] IS NOT NULL");
+
+                            b1.ToTable("Items");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ItemId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    ItemId = 1,
+                                    Value = "Default Name"
+                                });
+                        });
+
+                    b.Navigation("Name")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.RolePermissions", b =>

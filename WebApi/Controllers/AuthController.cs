@@ -7,7 +7,6 @@ using Application.Authentication.SignUp;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace WebApi.Controllers
 {
     public class AuthController : BaseApiController
@@ -58,9 +57,9 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> ConfirmEmail(ConfirmEmailCommand request)
+        public async Task<IActionResult> ConfirmEmail([FromQuery]ConfirmEmailCommand request)
         {
             await _mediator.Send(request);
             return NoContent();

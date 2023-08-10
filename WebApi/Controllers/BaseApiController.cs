@@ -5,7 +5,7 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [GlobalExceptionFilter]
+    //[GlobalExceptionFilter]  
     public abstract class BaseApiController : ControllerBase {   }
 
 }
