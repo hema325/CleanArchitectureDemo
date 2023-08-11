@@ -58,7 +58,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
 
                     b.HasData(
                         new
@@ -84,7 +84,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Permissions");
+                    b.ToTable("Permissions", (string)null);
 
                     b.HasData(
                         new
@@ -117,7 +117,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -144,7 +144,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PermissionId");
 
-                    b.ToTable("RolePermissions");
+                    b.ToTable("RolePermissions", (string)null);
 
                     b.HasData(
                         new
@@ -195,7 +195,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Value")
                         .IsUnique();
 
-                    b.ToTable("Tokens");
+                    b.ToTable("Tokens", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -234,7 +234,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
@@ -261,7 +261,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
 
                     b.HasData(
                         new
@@ -273,7 +273,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Item", b =>
                 {
-                    b.OwnsOne("Domain.ValueObjects.Name", "Name", b1 =>
+                    b.OwnsOne("Domain.Entities.Item.Name#Domain.ValueObjects.Name", "Name", b1 =>
                         {
                             b1.Property<int>("ItemId")
                                 .HasColumnType("int");
@@ -289,7 +289,7 @@ namespace Infrastructure.Migrations
                                 .IsUnique()
                                 .HasFilter("[Name] IS NOT NULL");
 
-                            b1.ToTable("Items");
+                            b1.ToTable("Items", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ItemId");

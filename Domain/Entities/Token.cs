@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Token : EntityBase
+    public sealed class Token : EntityBase
     {
         public int Id { get; set; }
         public string Value { get; set; }

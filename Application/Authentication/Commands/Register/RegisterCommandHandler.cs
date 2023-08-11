@@ -1,5 +1,4 @@
-﻿using Application.Authentication.Specifications;
-using Application.Common.Interfaces.Authentication;
+﻿using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.Repositories;
 using Domain.Common.Events;
 using Domain.Entities;

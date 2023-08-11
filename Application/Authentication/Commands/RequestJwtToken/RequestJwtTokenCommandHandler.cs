@@ -6,11 +6,6 @@ using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
 using Domain.Entities;
 using Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Authentication.Commands.RequestJwtToken
 {

@@ -1,14 +1,4 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Authentication.SignOut
+﻿namespace Application.Authentication.SignOut
 {
-    public class RevokeTokenCommand : IRequest 
-    {
-        public string RefreshToken { get; set; }
-    }
+    public sealed record RevokeTokenCommand (string RefreshToken): IRequest;
 }

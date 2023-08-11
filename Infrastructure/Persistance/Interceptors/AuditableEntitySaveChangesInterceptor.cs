@@ -55,9 +55,9 @@ namespace Infrastructure.Interceptors
 
         private void MangeSoftDeletedEntities(ChangeTracker changeTracker)
         {
-            var modifiedEntries = changeTracker.Entries<ISoftDeletableEntity>().Where(e => e.State == EntityState.Deleted);
+            var deletedEntries = changeTracker.Entries<ISoftDeletableEntity>().Where(e => e.State == EntityState.Deleted);
 
-            foreach (var entry in changeTracker.Entries())
+            foreach (var entry in deletedEntries)
             {
                 if (entry.Entity is ISoftDeletableEntity entity)
                 {

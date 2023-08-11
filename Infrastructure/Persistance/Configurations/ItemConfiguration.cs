@@ -12,7 +12,8 @@ namespace Infrastructure.Configurations
     internal class ItemConfiguration : IEntityTypeConfiguration<Item>
     {
         public void Configure(EntityTypeBuilder<Item> builder)
-        {   
+        {
+            builder.HasKey(i => new { i.Id });
             builder.Property(p => p.ImagePath).HasMaxLength(450).IsUnicode(false);
 
             builder.OwnsOne(i => i.Name, builder =>

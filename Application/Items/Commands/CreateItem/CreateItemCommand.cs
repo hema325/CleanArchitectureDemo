@@ -1,19 +1,7 @@
-﻿using Application.Common.Mapping;
-using Domain.Entities;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Application.Items.Commands.CreateItem
 {
-    public class CreateItemCommand: IRequest<int>
-    {
-        public string Name { get; set; }
-        public IFormFile Image { get; set; }
-    }
+    public sealed record CreateItemCommand(string Name,IFormFile Image): IRequest<int>;
+    
 }

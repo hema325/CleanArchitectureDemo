@@ -1,17 +1,4 @@
-﻿using Application.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Authentication.SignUp
+﻿namespace Application.Authentication.SignUp
 {
-    public class RegisterCommand: IRequest
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
+    public sealed record RegisterCommand(string FirstName,string LastName,string Email,string Password) : IRequest;
 }

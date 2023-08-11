@@ -2,7 +2,7 @@
 
 namespace Domain.ValueObjects
 {
-    public class Name : ValueObject
+    public sealed class Name : ValueObject
     {
         public const int MaxLength = 120;
 

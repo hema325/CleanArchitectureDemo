@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Role : EntityBase
+    public sealed class Role : EntityBase
     {
         public int Id { get; set; }
         public string Name { get; set; }

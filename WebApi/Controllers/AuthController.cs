@@ -4,6 +4,7 @@ using Application.Authentication.CreateEmailConfirmationToken;
 using Application.Authentication.SignIn;
 using Application.Authentication.SignOut;
 using Application.Authentication.SignUp;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,6 +64,14 @@ namespace WebApi.Controllers
         public async Task<IActionResult> ConfirmEmail([FromQuery]ConfirmEmailCommand request)
         {
             await _mediator.Send(request);
+            return NoContent();
+        }
+
+        [HttpGet]
+        [Route("test")]
+        public async Task<IActionResult> test([FromServices] IMapper mapper)
+        {
+            
             return NoContent();
         }
 

@@ -8,8 +8,8 @@ namespace Application.Items.Queries.GetItemsInCsvFile
 {
     public class GetItemsInCsvFileDTO
     {
-        public string FileName { get; set; }
-        public string ContentType { get; set; }
-        public byte[] Content { get; set; }
+        public string FileName { get; init; }
+        public string ContentType { get; init; }
+        public byte[] Content { get; init; }
     }
 }

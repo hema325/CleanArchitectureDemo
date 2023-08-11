@@ -17,13 +17,13 @@ namespace Infrastructure.Persistance.Repositories
         }
 
         public virtual async Task CreateAsync(TEntity entity)
-            => await _context.AddAsync(entity);
+            => await _context.Set<TEntity>().AddAsync(entity);
 
         public virtual void Delete(TEntity entity)
-            => _context.Remove(entity);
+            => _context.Set<TEntity>().Remove(entity);
 
         public virtual void Update(TEntity entity)
-            => _context.Update(entity);
+            => _context.Set<TEntity>().Update(entity);
 
         public async Task<IEnumerable<TEntity>> GetBySpecificationAsync(ISpecification<TEntity> specification)
         {

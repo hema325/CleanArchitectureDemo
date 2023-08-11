@@ -1,21 +1,19 @@
-﻿using Application.Items.Commands.CreateItem;
+﻿using Application;
+using Application.Items.Commands.CreateItem;
 using Application.Items.Commands.DeleteItem;
 using Application.Items.Commands.UpdateItem;
 using Application.Items.Queries.GetItemById;
 using Application.Items.Queries.GetItemsInCsvFile;
 using Application.Items.Queries.GetItemsWithPagination;
-using Domain.Enums;
-using Infrastructure.Authentication.Filters;
-using Infrastructure.Authentication.Permissions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     //[Authorize]
-    [HaveRoles(Roles.Admin)]
-    [HasPermission(Permissions.ReadWrite)]
-    [ApiKey]
+    //[HaveRoles(Roles.Admin)]
+    //[HasPermission(Permissions.ReadWrite)]
+    //[ApiKey]
     [Route("Items")]
     public class ItemsController : BaseApiController
     {
@@ -39,7 +37,7 @@ namespace WebApi.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
-            var items = await _mediator.Send(new GetItemByIdQuery { Id = id });
+            var items = await _mediator.Send(new GetItemByIdQuery(id));
 
             return Ok(items);
         }
@@ -66,7 +64,7 @@ namespace WebApi.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _mediator.Send(new DeleteItemCommand { Id = id });
+            await _mediator.Send(new DeleteItemCommand(id));
 
             return NoContent();
         }
@@ -75,7 +73,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Download()
         {
             var response = await _mediator.Send(new GetItemsInCsvFileQuery());
-
+            
             return File(response.Content, response.ContentType, response.FileName);
         }
 

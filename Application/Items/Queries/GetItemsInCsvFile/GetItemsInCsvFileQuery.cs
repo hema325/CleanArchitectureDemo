@@ -1,13 +1,4 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Items.Queries.GetItemsInCsvFile
+﻿namespace Application.Items.Queries.GetItemsInCsvFile
 {
-    public class GetItemsInCsvFileQuery: IRequest<GetItemsInCsvFileDTO>
-    {
-    }
+    public sealed record GetItemsInCsvFileQuery: IRequest<GetItemsInCsvFileDTO>;
 }

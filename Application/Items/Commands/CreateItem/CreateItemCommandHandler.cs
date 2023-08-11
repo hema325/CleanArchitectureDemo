@@ -1,5 +1,4 @@
-﻿using Application.Common.Interfaces.Data;
-using Application.Common.Interfaces.FilesStorage;
+﻿using Application.Common.Interfaces.FilesStorage;
 using Application.Common.Interfaces.Repositories;
 using Domain.Common.Events;
 using Domain.Entities;

@@ -1,19 +1,11 @@
 ﻿using Application.Authentication.Common.Specifications;
 using Application.Authentication.Exceptions;
 using Application.Authentication.Models;
-using Application.Common.Exceptions;
 using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
-using Application.Common.Models;
 using Domain.Entities;
 using Domain.Enums;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Authentication.SignIn
 {

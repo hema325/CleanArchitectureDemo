@@ -1,7 +1,6 @@
 ﻿using Application.Authentication.Common.Specifications;
 using Application.Common.Email.Interfaces;
 using Application.Common.Exceptions;
-using Application.Common.Helpers;
 using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.Repositories;
 using Application.Common.Interfaces.Services;
