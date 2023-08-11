@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj": {}
+    "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj": {
+    "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj",
+        "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\obj\\",
+        "outputPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",

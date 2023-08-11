@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Asp.netCoreMVC\\CleanArchitecture\\WebApi\\WebApi.csproj": {}
+    "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\WebApi\\WebApi.csproj": {}
   },
   "projects": {
-    "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj": {
+    "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj",
+        "projectUniqueName": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj",
+        "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\obj\\",
+        "outputPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj"
+              "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj"
               }
             }
           }
@@ -80,14 +80,14 @@
         }
       }
     },
-    "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj": {
+    "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj",
+        "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\obj\\",
+        "outputPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -140,14 +140,14 @@
         }
       }
     },
-    "D:\\Asp.netCoreMVC\\CleanArchitecture\\Infrastructure\\Infrastructure.csproj": {
+    "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Infrastructure\\Infrastructure.csproj",
+        "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Infrastructure\\obj\\",
+        "outputPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -164,8 +164,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj": {
-                "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj"
+              "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj": {
+                "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj"
               }
             }
           }
@@ -266,14 +266,14 @@
         }
       }
     },
-    "D:\\Asp.netCoreMVC\\CleanArchitecture\\WebApi\\WebApi.csproj": {
+    "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\WebApi\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Asp.netCoreMVC\\CleanArchitecture\\WebApi\\WebApi.csproj",
+        "projectUniqueName": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\WebApi\\WebApi.csproj",
         "projectName": "WebApi",
-        "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\WebApi\\WebApi.csproj",
+        "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\WebApi\\WebApi.csproj",
         "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-        "outputPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\WebApi\\obj\\",
+        "outputPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -290,11 +290,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj": {
-                "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj"
+              "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj": {
+                "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj"
               },
-              "D:\\Asp.netCoreMVC\\CleanArchitecture\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Infrastructure\\Infrastructure.csproj"
+              "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }

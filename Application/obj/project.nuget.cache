@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bAIOTRM2cWQTOdsRMmfDo9FObXSkk81Yr8LULdrekBc2s1BXRipyNst5l9CHXvGNGPkGfAWhPDCz+jEfxYQDOw==",
+  "dgSpecHash": "09Lc4mrGvueDpYkDGs0ie0voOHwKPm1e+wT8TYzOE5eGvQbDIaaGu48KilcuH1T2vWXb0xoA2fDip9DK1fvXNA==",
   "success": true,
-  "projectFilePath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj",
+  "projectFilePath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hp\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -10,3 +10,15 @@ D:\Asp.netCoreMVC\CleanArchitecture\Domain\obj\Debug\net6.0\Domain.dll
 D:\Asp.netCoreMVC\CleanArchitecture\Domain\obj\Debug\net6.0\refint\Domain.dll
 D:\Asp.netCoreMVC\CleanArchitecture\Domain\obj\Debug\net6.0\Domain.pdb
 D:\Asp.netCoreMVC\CleanArchitecture\Domain\obj\Debug\net6.0\ref\Domain.dll
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\bin\Debug\net6.0\Domain.deps.json
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\bin\Debug\net6.0\Domain.dll
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\bin\Debug\net6.0\Domain.pdb
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\obj\Debug\net6.0\Domain.dll
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\obj\Debug\net6.0\refint\Domain.dll
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\obj\Debug\net6.0\Domain.pdb
+D:\Asp.netCoreMVC\DDDCleanArchitecture\Domain\obj\Debug\net6.0\ref\Domain.dll

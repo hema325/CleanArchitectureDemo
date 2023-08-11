@@ -19,5 +19,10 @@ namespace WebApi.Services
         {
             return _linkGenerator.GetUriByAction(_httpContext, action, controller, values);
         }
+
+        public string? GetUriByName(string routeName,object values)
+        {
+            return _linkGenerator.GetUriByName(_httpContext, routeName, values);
+        }
     }
 }

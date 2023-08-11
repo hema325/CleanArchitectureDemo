@@ -5,17 +5,18 @@ using Application.Items.Queries.GetItemById;
 using Application.Items.Queries.GetItemsInCsvFile;
 using Application.Items.Queries.GetItemsWithPagination;
 using Domain.Enums;
+using Infrastructure.Authentication.Filters;
 using Infrastructure.Authentication.Permissions;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     //[Authorize]
-    //[HaveRoles(Roles.Admin)]
+    [HaveRoles(Roles.Admin)]
     [HasPermission(Permissions.ReadWrite)]
-    //[ApiKey]
+    [ApiKey]
+    [Route("Items")]
     public class ItemsController : BaseApiController
     {
         private readonly ISender _mediator;
@@ -25,7 +26,7 @@ namespace WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("Paginate")]
         //[EnableCors(CorsPolicyNames.CorsPolicy)]
         //[DisableCors]
         public async Task<IActionResult> Paginate([FromQuery] GetItemsWithPaginationQuery request)
@@ -43,7 +44,7 @@ namespace WebApi.Controllers
             return Ok(items);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("Add")]
         public async Task<IActionResult> Add([FromForm]CreateItemCommand request)
         {
             var id = await _mediator.Send(request);
@@ -70,7 +71,7 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("Download")]
         public async Task<IActionResult> Download()
         {
             var response = await _mediator.Send(new GetItemsInCsvFileQuery());

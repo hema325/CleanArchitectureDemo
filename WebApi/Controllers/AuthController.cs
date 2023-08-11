@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
+    [Route("Auth")]
     public class AuthController : BaseApiController
     {
         private readonly ISender _mediator;
@@ -19,7 +20,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
+        [Route("Register")]
         public async Task<IActionResult> Register(RegisterCommand request)
         {
             await _mediator.Send(request);
@@ -27,14 +28,14 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
+        [Route("Authenticate")]
         public async Task<IActionResult> Authenticate(AuthenticateCommand request)
         {
             return Ok(await _mediator.Send(request));
         }
 
         [HttpPost]
-        [Route("[action]")]
+        [Route("RevokeToken")]
 
         public async Task<IActionResult> RevokeToken(RevokeTokenCommand request)
         {
@@ -43,14 +44,14 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
+        [Route("RequestJwtToken")]
         public async Task<IActionResult> RequestJwtToken(RequestJwtTokenCommand request)
         {
             return Ok(await _mediator.Send(request));
         }
 
         [HttpPost]
-        [Route("[action]")]
+        [Route("SendEmailConfirmationToken")]
         public async Task<IActionResult> SendEmailConfirmationToken(SendEmailConfirmationCommand request)
         {
             await _mediator.Send(request);
@@ -58,7 +59,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("[action]")]
+        [Route("ConfirmEmail", Name = "ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail([FromQuery]ConfirmEmailCommand request)
         {
             await _mediator.Send(request);

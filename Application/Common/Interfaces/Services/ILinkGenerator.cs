@@ -9,5 +9,6 @@ namespace Application.Common.Interfaces.Services
     public interface ILinkGenerator
     {
         string GetUriByAction(string action, string controller, object values);
+        string? GetUriByName(string routeName, object values);
     }
 }

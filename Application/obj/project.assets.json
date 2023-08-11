@@ -932,11 +932,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj",
+      "projectUniqueName": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\Application.csproj",
+      "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\Application.csproj",
       "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Application\\obj\\",
+      "outputPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -953,8 +953,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj": {
-              "projectPath": "D:\\Asp.netCoreMVC\\CleanArchitecture\\Domain\\Domain.csproj"
+            "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\Asp.netCoreMVC\\DDDCleanArchitecture\\Domain\\Domain.csproj"
             }
           }
         }

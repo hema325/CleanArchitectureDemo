@@ -20,6 +20,7 @@ namespace Application.Authentication.CreateEmailConfirmationToken
         private readonly IDateTime _dateTime;
         private readonly IRandomTokenGenerator _tokenProvider;
         private readonly ITemplateEnvironment _templateEnvironment;
+        private readonly ILinkGenerator _linkGenerator;
 
 
         public SendEmailConfirmationCommandHandler(IEmailSender emailSender,
@@ -27,7 +28,8 @@ namespace Application.Authentication.CreateEmailConfirmationToken
                                                    IDateTime dateTime,
                                                    IRandomTokenGenerator tokenProvider,
                                                    ITemplate emailTemplate,
-                                                   ITemplateEnvironment templateEnvironment)
+                                                   ITemplateEnvironment templateEnvironment,
+                                                   ILinkGenerator linkGenerator)
         {
             _emailSender = emailSender;
             _unitOfWork = unitOfWork;
@@ -35,6 +37,7 @@ namespace Application.Authentication.CreateEmailConfirmationToken
             _tokenProvider = tokenProvider;
             _emailTemplate = emailTemplate;
             _templateEnvironment = templateEnvironment;
+            _linkGenerator = linkGenerator;
         }
 
         public async Task<Unit> Handle(SendEmailConfirmationCommand request, CancellationToken cancellationToken)
@@ -56,7 +59,7 @@ namespace Application.Authentication.CreateEmailConfirmationToken
             await _unitOfWork.Tokens.CreateAsync(token);
             await _unitOfWork.SaveChangesAsync();
 
-            var link = UrlHelper.AddLinkToQuery(request.CallbackUrl, new { userId = user.Id, token = token.Value });
+            var link = _linkGenerator.GetUriByName("ConfirmEmail", new { userId = user.Id, token = token.Value });
 
             await SendEmailVerification(request.Email, link);
 
