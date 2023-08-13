@@ -8,7 +8,7 @@
                 .NotEmpty().WithMessage("The {PropertyName} is required");
 
             RuleFor(i => i.Name)
-                .MaximumLength(250).WithMessage("The {PropertyName} must have maximum length of 250")
+                .MaximumLength(250).WithMessage("The {PropertyName} must have maximum length of {MaxLength}")
                 .NotEmpty().WithMessage("The {PropertyName} is required"); ;
         }
     }

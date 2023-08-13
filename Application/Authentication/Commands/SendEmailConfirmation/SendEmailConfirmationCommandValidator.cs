@@ -6,7 +6,7 @@
         {
             RuleFor(c => c.Email)
                 .Matches(@"^[\w\d]+@\w+.\w+$").WithMessage("the {PropertyName} is not valid")
-                .MaximumLength(256).WithMessage("The {PropertyName} must have maximum length of 256")
+                .MaximumLength(256).WithMessage("The {PropertyName} must have maximum length of {MaxLength}")
                 .NotEmpty().WithMessage("The {PropertyName} is required");
         }
     }
