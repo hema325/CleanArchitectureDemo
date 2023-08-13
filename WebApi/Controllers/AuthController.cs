@@ -67,13 +67,5 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpGet]
-        [Route("test")]
-        public async Task<IActionResult> test([FromServices] IMapper mapper)
-        {
-            
-            return NoContent();
-        }
-
     }
 }

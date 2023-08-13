@@ -11,7 +11,8 @@ namespace Application.Items.Commands.DeleteItem
     {
         public DeleteItemCommandValidator()
         {
-            RuleFor(i => i.Id).NotEmpty();
+            RuleFor(i => i.Id)
+                .NotEmpty().WithMessage("The {PropertyName} is required"); ;
         }
     }
 }

@@ -619,3 +619,4 @@ D:\Asp.netCoreMVC\DDDCleanArchitecture\WebApi\obj\Debug\net6.0\WebApi.pdb
 D:\Asp.netCoreMVC\DDDCleanArchitecture\WebApi\obj\Debug\net6.0\WebApi.genruntimeconfig.cache
 D:\Asp.netCoreMVC\DDDCleanArchitecture\WebApi\obj\Debug\net6.0\ref\WebApi.dll
 D:\Asp.netCoreMVC\DDDCleanArchitecture\WebApi\bin\Debug\net6.0\Logs\log-20230811.json
+D:\Asp.netCoreMVC\DDDCleanArchitecture\WebApi\bin\Debug\net6.0\Logs\log-20230813.json

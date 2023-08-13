@@ -18,7 +18,7 @@ namespace Infrastructure.Middleware
         {
             source.UseMiddleware<RequestLoggingMiddleware>();
             source.UseMiddleware<ResponseLoggingMiddleware>();
-            //source.UseMiddleware<GlobalExceptionMiddleware>();
+            source.UseMiddleware<GlobalExceptionMiddleware>();
 
             return source;
         }
